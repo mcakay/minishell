@@ -1,0 +1,2 @@
+We can keep the resources in here for now lol
+It seems like a good start for now : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
