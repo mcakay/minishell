@@ -8,7 +8,7 @@ READLINE = -L/usr/include -lreadline
 
 LIBFT = ./libft/libft.a
 
-SRCS = main.c lexer.c lexer_utils.c
+SRCS = main.c lexer.c quote_handler.c
 
 OBJS = $(SRCS:.c=.o)
 

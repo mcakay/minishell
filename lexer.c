@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:00:08 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/14 18:06:45 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/14 23:28:51 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ int	init_input(t_input *input, char *line)
 	input->double_quotes = count_marks(line, '"');
 	input->single_quotes = count_marks(line, '\'');
 	if (input->double_quotes % 2 != 0 || input->single_quotes % 2 != 0)
-		return (printf("Error: quotes not closed\n"));
-	quote_in_split(input, line);
-	quote_out_split(input, line);
-	
+		return (printf("Syntax Error: quotes not closed\n"));
+	input->line = ft_strdup(line);
+	quote_split(input);
 	return (0);
 }
 
@@ -47,9 +46,7 @@ char	*lexer(char *line)
 
 	if (init_input(&input, line))
 		return (NULL);
-	for (int i = 0; input.quotes_in[i]; i++)
-		printf("quote in: %s\n", input.quotes_in[i]);
-	for (int i = 0; input.quotes_out[i]; i++)
-		printf("quote out: %s\n", input.quotes_out[i]);
+	for (int i = 0; input.quotes[i]; i++)
+		printf("%s\n", input.quotes[i]);
 	return (line);
 }
