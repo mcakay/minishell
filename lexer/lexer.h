@@ -6,12 +6,12 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:00:30 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/14 22:43:28 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 00:03:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MARKS_H
-#define MARKS_H
+#ifndef LEXER_H
+#define LEXER_H
 
 typedef struct s_input {
 	int 	double_quotes;
@@ -20,7 +20,11 @@ typedef struct s_input {
 	char	*line;
 } 				t_input;
 
-//utils
+//quote_handler
 void	quote_split(t_input *input);
+
+//quote_counter
+int		count_double_marks(char *line);
+int 	count_single_marks(char *line);
 
 #endif

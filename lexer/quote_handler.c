@@ -6,12 +6,12 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/14 23:27:16 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 00:28:37 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "minishell.h"
+#include "../minishell.h"
 
 void	quote_open(t_input *input, int *j, int *i, char quote)
 {
@@ -22,7 +22,7 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 	while (input->line[*i + k] != quote && input->line[*i + k] != '\0')
 		k++;
 	input->quotes[*j] = ft_substr(input->line, *i, k);
-	*i += k;
+	*i += k + 1;
 	(*j)++;
 }
 
@@ -45,7 +45,7 @@ void	quote_split(t_input *input)
 
 	i = 0;
 	j = 0;
-	input->quotes = malloc(sizeof(char *) * (10000));
+	input->quotes = malloc(sizeof(char *) * (input->double_quotes + input->single_quotes + 1));
 	while (input->line[i])
 	{
 		if (input->line[i] == '"')	
@@ -55,4 +55,5 @@ void	quote_split(t_input *input)
 		else
 			quote_out(input, &j, &i);
 	}
+	input->quotes[j] = NULL;
 }

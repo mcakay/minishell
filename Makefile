@@ -6,9 +6,11 @@ CFLAGS = -Wall -Wextra -Werror
 
 READLINE = -L/usr/include -lreadline
 
+LEXER = ./lexer/lexer.c ./lexer/quote_handler.c ./lexer/quote_counter.c
+
 LIBFT = ./libft/libft.a
 
-SRCS = main.c lexer.c quote_handler.c
+SRCS = main.c $(LEXER)
 
 OBJS = $(SRCS:.c=.o)
 
