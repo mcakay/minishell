@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/13 13:17:46 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/13 22:54:48 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,12 @@
 
 #include <stdio.h>
 #include "./libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+
+
+
+//lexer
+char	*lexer(char *line);
 
 #endif

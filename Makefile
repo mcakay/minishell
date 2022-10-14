@@ -4,22 +4,27 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
+READLINE = -L/usr/include -lreadline
+
 LIBFT = ./libft/libft.a
 
-SRCS = main.c
+SRCS = main.c lexer.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJS)
+	@$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)  
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	@make -C ./libft
+
+$(READLINE):
+	@make -C ./lib/readline
 
 clean:
 	@rm -f $(OBJS)
