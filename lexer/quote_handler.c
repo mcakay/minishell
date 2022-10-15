@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 00:28:37 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 04:13:58 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 	(*i)++;
 	while (input->line[*i + k] != quote && input->line[*i + k] != '\0')
 		k++;
+	if (k == 0)
+	{
+		(*i)++;
+		return ;
+	}
 	input->quotes[*j] = ft_substr(input->line, *i, k);
 	*i += k + 1;
 	(*j)++;
@@ -28,12 +33,15 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 
 void	quote_out(t_input *input, int *j, int *i)
 {
-	int	k;
+	char	*tmp;
+	int		k;
 
 	k = 0;
 	while (input->line[*i + k] != '"' && input->line[*i + k] != '\'' && input->line[*i + k] != '\0')
 		k++;
-	input->quotes[*j] = ft_substr(input->line, *i, k);
+	tmp = ft_substr(input->line, *i, k);
+	input->quotes[*j] = remove_whitespaces(tmp);
+	free(tmp);
 	*i += k;
 	(*j)++;
 }
