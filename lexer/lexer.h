@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:00:30 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 02:57:56 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:35:44 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ int 	count_single_marks(char *line);
 
 //white_spaces
 char	*remove_whitespaces(char *str);
+
+//utils
+int		is_special_char(char *str);
+char	*add_marks(char *str);
 
 #endif

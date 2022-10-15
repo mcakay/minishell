@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */ 
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:00:08 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 04:16:24 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 12:59:12 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ char	*lexer(char *line)
 {
 	t_input input;
 
+	if (*line == '\0')
+		return (NULL);
 	if (init_input(&input, line))
 		return (NULL);
-	for (int i = 0; input.quotes[i]; i++)
-		printf("%s\n", input.quotes[i]);
+	for(int i = 0; input.quotes[i]; i++)
+		printf("quotes[%d]:%s\n", i, input.quotes[i]);
 	return (line);
 }

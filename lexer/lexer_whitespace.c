@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 02:57:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 03:41:32 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/15 18:45:52 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ static int calculate_size(char *line)
 	return (size);
 }
 
-static int	check_empty(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!is_whitespace(line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 char	*remove_whitespaces(char *str)
 {
 	char	*rtn;
@@ -64,29 +50,23 @@ char	*remove_whitespaces(char *str)
 
 	i = 0;
 	j = 0;
-	if (check_empty(str))
+	rtn = malloc(sizeof(char) * (calculate_size(str) + 20));
+	while (str[i])
 	{
-		rtn = malloc(sizeof(char) * 2);
-		rtn[0] = ' ';
-		rtn[1] = '\0';
-		return (rtn);
-	}
-	tmp = ft_strtrim(str, " \t");
-	rtn = malloc(sizeof(char) * (calculate_size(str) + 1));
-	while (tmp[i])
-	{
-		if (is_whitespace(tmp[i]))
+		if (is_whitespace(str[i]))
 		{
 			rtn[j] = ' ';
 			j++;
-			while (is_whitespace(tmp[i]))
+			while (is_whitespace(str[i]))
 				i++;
 		}
-		rtn[j] = tmp[i];
+		rtn[j] = str[i];
 		i++;
 		j++;
 	}
-	free(tmp);
 	rtn[j] = '\0';
-	return (rtn);
+	free(str);
+	tmp = ft_strtrim(rtn, " \t");
+	free(rtn);
+	return (tmp);
 }
