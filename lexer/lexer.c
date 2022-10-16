@@ -33,6 +33,6 @@ char	*lexer(char *line)
 	if (init_input(&input, line))
 		return (NULL);
 	for(int i = 0; input.quotes[i]; i++)
-		printf("quotes[%d]:%s\n", i, input.quotes[i]);
+		printf("quotes[%d]:*%s*\n", i, input.quotes[i]);
 	return (line);
 }

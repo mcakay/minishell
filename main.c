@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:43 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 16:31:25 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/16 21:21:05 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main(int argc, char **argv, char **envp)
 		char *line = readline("minishell$ ");
 		add_history(line);
 		lexer(line);
-		free(line);
 	}
 	return (0);
 }
