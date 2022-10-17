@@ -1,53 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_counter.c                                    :+:      :+:    :+:   */
+/*   lexer_remove_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 23:59:15 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 00:00:49 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/17 03:36:20 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../minishell.h"
 
-int	count_double_marks(char *line)
+char	*remove_quotes(char *str)
 {
-	int i;
-	int count;
+	int		i;
+	int		j;
+	char	*rtn;
+	char	mark;
 
 	i = 0;
-	count = 0;
-	while (line[i])
+	j = 0;
+	rtn = malloc(sizeof(char) * 300);
+	while (str[i])
 	{
-		if (line[i] == '"')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int count_single_marks(char *line)
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (line[i])
-	{
-		while (line[i] != '"' && line[i] != '\0')
+		if (str[i] == '"' || str[i] == '\'')
 		{
-			if (line[i] == '\'')
-				count++;
+			mark = str[i];
+			i++;
+			while (str[i] != mark)
+			{
+				rtn[j] = str[i];
+				i++;
+				j++;
+			}
 			i++;
 		}
-		i++;
-		while (line[i] != '"' && line[i] != '\0')
+		else
+		{
+			rtn[j] = str[i];
 			i++;
-		i++;
+			j++;
+		}
 	}
-	return (count);
+	rtn[j] = '\0';
+	free(str);
+	return (rtn);
 }

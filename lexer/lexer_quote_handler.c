@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/16 21:32:03 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/17 03:38:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,24 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 	(*i)++;
 	while (input->line[*i + k] != quote && input->line[*i + k] != '\0')
 		k++;
-	while (input->line[*i + k] != ' ' && input->line[*i + k] != '\t' 
-		&& input->line[*i + k] != '\0' && is_special_char(input->line[*i + k]) == 0)
+	while (is_space_or_null(input->line[*i + k]) == 0 && is_special_char(input->line[*i + k]) == 0)
 		k++;
-	input->quotes[*j] = ft_substr(input->line, *i - 1, k + 1);
-	*i += k;
+	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
+	*i += k + 1;
 	(*j)++;
 }
 
 void	quote_out(t_input *input, int *j, int *i)
 {
 	int		k;
-	int		a;
 
 	k = 0;
-	a = 0;
-	while (input->line[*i + k] != ' ' && input->line[*i + k] != '\t' && input->line[*i + k] != '\0' && is_special_char(input->line[*i + k]) == 0)
+	while(is_space(input->line[*i]) == 1)
+		(*i)++;
+	while (is_space_or_null(input->line[*i + k]) == 0 && is_special_char(input->line[*i + k]) == 0)
 		k++;
-	input->quotes[*j] = ft_substr(input->line, *i, k);
-	while (input->line[*i + k] == ' ' || input->line[*i + k] == '\t')
+	input->args[*j] = ft_substr(input->line, *i, k);
+	while (is_space(input->line[*i + k]) == 1)
 		k++;
 	*i += k;
 	(*j)++;
@@ -51,15 +50,16 @@ void	special_char(t_input *input, int *j, int *i)
 
 	k = 0;
 	(*i)++;
-	while (input->line[*i + k] != ' ' && input->line[*i + k] != '\t' && input->line[*i + k] != '\0')
+	while (is_space_or_null(input->line[*i + k]) == 0)
 	{
 		if (input->line[*i + k] != input->line[*i - 1] 
-		|| (input->line[*i + k] != '<' && input->line[*i + k] != '>'))
+		|| (input->line[*i + k] != '<' && input->line[*i + k] != '>')
+		|| k != 0)
 			break ;
 		else
 			k++;
 	}
-	input->quotes[*j] = ft_substr(input->line, *i - 1, k + 1);
+	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
 	*i += k;
 	(*j)++;
 }
@@ -71,7 +71,7 @@ void	quote_split(t_input *input)
 
 	i = 0;
 	j = 0;
-	input->quotes = malloc(sizeof(char *) * (100000));
+	input->args = malloc(sizeof(char *) * (10000));
 	while (input->line[i])
 	{
 		if (input->line[i] == '"' || input->line[i] == '\'')
@@ -81,5 +81,5 @@ void	quote_split(t_input *input)
 		else
 			quote_out(input, &j, &i);
 	}
-	input->quotes[j] = NULL;
+	input->args[j] = NULL;
 }

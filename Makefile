@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 READLINE = -L/usr/include -lreadline
 
-LEXER = ./lexer/lexer.c ./lexer/quote_handler.c ./lexer/quote_counter.c ./lexer/lexer_utils.c
+LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c ./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c
 
 LIBFT = ./libft/libft.a
 

@@ -1,35 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   quote_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 20:29:55 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 03:36:21 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/14 23:59:15 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/17 03:38:08 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../minishell.h"
 
-int	is_special_char(char c)
+int	count_double_quotes(char *line)
 {
-	if (c == '|' || c == '>' || c == '<')
-		return (1);
-	return (0);
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == '"')
+			count++;
+		i++;
+	}
+	return (count);
 }
 
-int	is_space_or_null(char c)
+int count_single_quotes(char *line)
 {
-	if (c == ' ' || c == '\t' || c == '\0')
-		return (1);
-	return (0);
-}
+	int i;
+	int count;
 
-int	is_space(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		while (line[i] != '"' && line[i] != '\0')
+		{
+			if (line[i] == '\'')
+				count++;
+			i++;
+		}
+		i++;
+		while (line[i] != '"' && line[i] != '\0')
+			i++;
+		i++;
+	}
+	return (count);
 }

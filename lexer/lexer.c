@@ -15,11 +15,12 @@
 
 int	init_input(t_input *input, char *line)
 {
-	input->double_quotes = count_double_marks(line);
-	input->single_quotes = count_single_marks(line);
+	input->double_quotes = count_double_quotes(line);
+	input->single_quotes = count_single_quotes(line);
 	if (input->double_quotes % 2 != 0 || input->single_quotes % 2 != 0)
 		return (printf("Syntax Error: quotes not closed\n"));
 	input->line = ft_strdup(line);
+	free(line);
 	quote_split(input);
 	return (0);
 }
@@ -27,12 +28,19 @@ int	init_input(t_input *input, char *line)
 char	*lexer(char *line)
 {
 	t_input input;
+	int		i;
 
 	if (*line == '\0')
 		return (NULL);
 	if (init_input(&input, line))
 		return (NULL);
-	for(int i = 0; input.quotes[i]; i++)
-		printf("quotes[%d]:*%s*\n", i, input.quotes[i]);
+	i = 0;
+	while (input.args[i])
+	{
+		input.args[i] = remove_quotes(input.args[i]);
+		i++;
+	}
+	for (int i = 0; input.args[i] != NULL; i++)
+		printf("args[%d]=%s\n", i, input.args[i]);
 	return (line);
 }
