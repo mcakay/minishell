@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/18 20:14:51 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:37:10 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	my_echo(t_mini *a)
 }
 
 void	my_cd(t_prompt *p)
+{}
 
 int	main(void)
 {

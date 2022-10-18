@@ -6,22 +6,28 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/18 22:00:56 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 01:26:51 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	my_env(t_prompt *p)
+void	my_env(char **e)
 {
 	int	i;
 
 	i = 0;
-	while (p->envp[i])
-		printf("%s\n", p->envp[i]);
+	while (e[i])
+		printf("%s\n", e[i]);
 }
 
 char	*find_key_word(char *a)
 {
+	int	i;
 
+	i = 0;
+	while (a[i] != '=')
+		i++;
+	a[i] = '\0';
+	return (a);
 }
 
 int	is_present(t_prompt *p, char *a)
@@ -29,9 +35,15 @@ int	is_present(t_prompt *p, char *a)
 	int	i;
 
 	i = 0;
-	p->envp
+	while (p->envp_ex[i])
+	{
+		if (find_key_word(p->envp[i]) == find_key_word(a))
+			return (ft_strlen(find_key_word(p->envp_ex[i])));
+		i++;
+	}
 	return (0);
 }
+
 int	my_unset(t_prompt *p, t_mini *a)
 {
 	int		i;
@@ -44,25 +56,29 @@ int	my_unset(t_prompt *p, t_mini *a)
 		k = 1;
 		while (a->full_cmd[k])
 		{
-			while (p->envp[i])
-				i++;
-			temp = ft_calloc(i - 1, sizeof(char *));
-			if (!temp)
-				return (-1);
-			i = 0;
-			j = 0;
-			while (p->envp[i] && is_present(a->full_cmd[k]))
+			if (is_present(p, a->full_cmd[k]))
 			{
-				if (p->envp[i] != a->full_cmd[k++])
-					temp[j++] == p->envp[i];
-				i++;
+				while (p->envp[i])
+					i++;
+				temp = ft_calloc(i - 1, sizeof(char *));
+				if (!temp)
+					return (-1);
+				i = 0;
+				j = 0;
+				while (p->envp[i] && is_present(p, a->full_cmd[k]))
+				{
+					if (p->envp[i] != a->full_cmd[k])
+						temp[j++] == p->envp[i];
+					i++;
+				}
+				free (p->envp[i]);
+				p->envp = temp;
 			}
-			free (p->envp[i]);
-			p->envp = temp;
+			k++;
 		}
-		return (0);
 	}
-	printf("unset: not enough arguments");
+	else
+		printf("unset: not enough arguments");
 	return (0);
 }
 
