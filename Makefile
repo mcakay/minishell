@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./libft/libft.a
 
-BUILTIN = ./builtin/my_pwd.c /builtin/environment.c
+BUILTIN = ./builtin/builtin.c /builtin/environment.c
 
 SRCS = $(BUILTIN)
 
