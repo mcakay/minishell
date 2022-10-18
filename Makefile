@@ -6,7 +6,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./libft/libft.a
 
-SRCS = main.c
+BUILTIN = ./builtin/my_pwd.c /builtin/environment.c
+
+SRCS = $(BUILTIN)
 
 OBJS = $(SRCS:.c=.o)
 
