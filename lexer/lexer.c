@@ -13,7 +13,7 @@
 #include "lexer.h"
 #include "../minishell.h"
 
-int	init_input(t_input *input, char *line)
+int	init_input(t_input *input, char *line, char **envp)
 {
 	input->double_quotes = count_double_quotes(line);
 	input->single_quotes = count_single_quotes(line);
@@ -21,18 +21,20 @@ int	init_input(t_input *input, char *line)
 		return (printf("Syntax Error: quotes not closed\n"));
 	input->line = ft_strdup(line);
 	free(line);
+	init_envs(input, envp);
+	init_dollar(input);
 	quote_split(input);
 	return (0);
 }
 
-char	*lexer(char *line)
+char	*lexer(char *line, char **envp)
 {
 	t_input input;
 	int		i;
 
 	if (*line == '\0')
 		return (NULL);
-	if (init_input(&input, line))
+	if (init_input(&input, line, envp))
 		return (NULL);
 	i = 0;
 	while (input.args[i])

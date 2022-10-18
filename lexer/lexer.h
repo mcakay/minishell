@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:00:30 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 03:40:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/18 02:18:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_input {
 	int 	double_quotes;
 	int 	single_quotes;
 	char	**args;
+	char	**envs;
 	char	*line;
 } 				t_input;
 
@@ -34,5 +35,10 @@ int		is_space(char c);
 
 //remove_quotes
 char	*remove_quotes(char *str);
+
+//env
+void	init_dollar(t_input *input);
+void	init_envs(t_input *input, char **envp);
+
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_handler.c                                    :+:      :+:    :+:   */
+/*   lexer_quote_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 03:38:53 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/17 11:39:39 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 	while (is_space_or_null(input->line[*i + k]) == 0 && is_special_char(input->line[*i + k]) == 0)
 		k++;
 	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
-	*i += k + 1;
+	while (is_space(input->line[*i + k]) == 1)
+		k++;
+	*i += k;
 	(*j)++;
 }
 
@@ -60,6 +62,8 @@ void	special_char(t_input *input, int *j, int *i)
 			k++;
 	}
 	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
+	while (is_space(input->line[*i + k]) == 1)
+		k++;
 	*i += k;
 	(*j)++;
 }
