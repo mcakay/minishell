@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/18 13:29:08 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/18 13:30:32 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/18 13:30:47 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-#define MINISHELL
+#include "parser.h"
 
-#include <stdio.h>
-#include "./libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+void	copy_envp(char **envp, t_prompt *prompt)
+{
+	int i;
 
-void	parser(char **strs, char **envp);
-
-#endif
+	i = 0;
+	while (envp[i])
+		i++;
+	prompt->envp = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (envp[i])
+	{
+		prompt->envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	prompt->envp[i] = NULL;
+}

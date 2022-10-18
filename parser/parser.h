@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/18 13:29:08 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/18 13:02:15 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/18 15:36:41 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-#define MINISHELL
+#ifndef PARSER_H
+# define PARSER_H
 
-#include <stdio.h>
-#include "./libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+# include "../minishell.h"
 
-void	parser(char **strs, char **envp);
+typedef struct s_mini
+{
+	char	**full_cmd;
+	char	*full_path;
+	int		infile;
+	int		outfile;
+	struct s_mini *next;
+}				t_mini;
+
+typedef struct s_prompt
+{
+	t_mini	*cmds;
+	char	**envp;
+	pid_t	pid;
+}				t_prompt;
+
+//envp
+void	copy_envp(char **envp, t_prompt *prompt);
+
+//cmd
+void	get_cmds(t_mini **cmds, char **strs);
 
 #endif

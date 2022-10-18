@@ -4,16 +4,20 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
+READLINE = -L/usr/include -lreadline
+
 LIBFT = ./libft/libft.a
 
-SRCS = main.c
+PARSER = ./parser/parser.c ./parser/parser_env.c ./parser/parser_cmd.c
+
+SRCS = main.c $(PARSER)
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(READLINE) -o $(NAME) $(LIBFT) $(OBJS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
