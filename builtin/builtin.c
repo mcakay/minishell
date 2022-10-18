@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/18 19:50:15 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/18 20:14:51 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	my_pwd(void)
 	char	*path;
 
 	path = getwd(NULL);
-	ft_putendl_fd(path, 1);
+	printf("%s\n", path);
 	free (path);
 }
 
@@ -30,23 +30,25 @@ void	my_echo(t_mini *a)
 	{
 		if (a->full_cmd[2])
 		{
-			ft_printf("%d", a->full_cmd[2]);
+			printf("%d", a->full_cmd[2]);
 			i = 3;
 			while (a->full_cmd[i])
-				ft_printf(" %d", a->full_cmd[i++]);
+				printf(" %d", a->full_cmd[i++]);
 		}
 	}
 	else if (a->full_cmd[1])
 	{
-		ft_printf("%d", a->full_cmd[1]);
+		printf("%d", a->full_cmd[1]);
 		i = 2;
 		while (a->full_cmd[i])
-			ft_printf(" %d", a->full_cmd[i++]);
-		ft_printf("\n");
+			printf(" %d", a->full_cmd[i++]);
+		printf("\n");
 	}
 	else
-		ft_printf("\n");
+		printf("\n");
 }
+
+void	my_cd(t_prompt *p)
 
 int	main(void)
 {

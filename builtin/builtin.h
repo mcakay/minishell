@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:37:39 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/18 13:38:57 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/18 20:12:42 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define BUILTIN_H
 
 # include <unistd.h>
+# include <stdlib.h>
 
 #endif
