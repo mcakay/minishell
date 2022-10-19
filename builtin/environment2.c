@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   environment2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:37:39 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 03:23:15 by bkayan           ###   ########.fr       */
+/*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
+/*   Updated: 2022/10/19 03:26:34 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "builtin.h"
+#include "../minishell.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+int	check_equal(char *p, char *a)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while ()
+}
+
+void	my_export(t_prompt *p, t_mini *a)
+{
+	int	i;
+
+	if ()
+}

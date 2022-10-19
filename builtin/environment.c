@@ -6,9 +6,12 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 03:13:19 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 03:17:37 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "builtin.h"
+#include "../minishell.h"
 
 void	my_env(char **e)
 {
@@ -96,23 +99,4 @@ char	**change_env(t_prompt *p, char **p, char *a)
 		i++;
 	}
 	return (temp);
-}
-
-void	my_export(t_prompt *p, int ac, t_mini *a)
-{
-	int	i;
-
-	if (ac <= 1)
-		my_env(p);
-	else
-	{
-		i = 0;
-		while (p->envp[i])
-		{
-			if (ft_strncmp(a->full_cmd[1], p->envp[i]) == 0,
-				ft_strlen(p->envp[i]))
-				p->envp[i] = 0;
-			i++;
-		}
-	}
 }

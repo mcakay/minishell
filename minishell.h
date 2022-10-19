@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/13 13:17:46 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/19 03:23:33 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-#define MINISHELL
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-#include <stdio.h>
-#include "./libft/libft.h"
+# include <stdio.h>
+# include "./libft/libft.h"
 
 #endif
