@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 00:37:10 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 11:55:46 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ void	my_echo(t_mini *a)
 		printf("\n");
 }
 
-void	my_cd(t_prompt *p)
-{}
+void	my_cd(t_prompt *p, t_mini *a)
+{
+	//boş bişey yapmiy
+	//. ve .. bak
+	//pwd den sonrasına cdyi ekle
+	a->full_fd
+	chdir();
+}
 
 int	main(void)
 {
