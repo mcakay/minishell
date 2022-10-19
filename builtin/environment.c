@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 03:17:37 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 03:37:22 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	my_unset(t_prompt *p, t_mini *a)
 	{
 		if (is_present(p->env, a->full_cmd[i]))
 		{
-			temp = change_env(p->env, a->full_cmd[i]);
+			temp = del_env(p->env, a->full_cmd[i]);
 			if (!temp)
 				return (-1);
 			p->env = temp;
@@ -67,7 +67,7 @@ int	my_unset(t_prompt *p, t_mini *a)
 		}
 		if (is_present(p->env_ex, a->full_cmd[i]))
 		{
-			temp = change_env(p->env_ex, a->full_cmd[i]);
+			temp = del_env(p->env_ex, a->full_cmd[i]);
 			if (!temp)
 				return (-1);
 			p->env_ex = temp;
@@ -78,7 +78,7 @@ int	my_unset(t_prompt *p, t_mini *a)
 	return (0);
 }
 
-char	**change_env(t_prompt *p, char **p, char *a)
+char	**del_env(char **p, char *a)
 {
 	char	**temp;
 	int		i;
