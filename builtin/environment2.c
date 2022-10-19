@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 03:41:00 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/19 10:44:22 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	check_equal(char *a)
 
 	i = 0;
 	while ()
+	{}
 }
 
 void	my_export(t_prompt *p, t_mini *a)
@@ -26,6 +27,8 @@ void	my_export(t_prompt *p, t_mini *a)
 	int	i;
 
 	i = 1;
+	if (!a->full_cmd[i])
+		printf_export();
 	while (a->full_cmd[i])
 	{
 		if (is_present(p->env, a->full_cmd[i]))
@@ -41,6 +44,9 @@ void	my_export(t_prompt *p, t_mini *a)
 		i++;
 	}
 }
+
+void	print_export();
+{}
 
 //fix
 char	**change_env(t_prompt *p, char **p, char *a)
