@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 05:00:19 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:25:00 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	quote_split(t_input *input)
 
 	i = 0;
 	j = 0;
-	input->args = malloc(sizeof(char *) * (10000));
+	input->args = malloc(sizeof(char *) * (input->args_size + 1));
 	while (input->line[i])
 	{
 		if (input->line[i] == '"' || input->line[i] == '\'')

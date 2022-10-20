@@ -26,6 +26,8 @@ int	init_input(t_input *input, char *line, char **envp)
 	free(line);
 	init_envs(input, envp);
 	calc_size(input);
+	calc_args_size(input);
+	printf("args_size: %d\n", input->args_size);
 	init_dollar(input);
 	quote_split(input);
 	return (0);

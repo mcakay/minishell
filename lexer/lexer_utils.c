@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 20:29:55 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 16:53:25 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:21:11 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,25 @@ void	append_str(char *s1, char *s2, int *i, int *j)
 	s1[*j] = s2[*i];
 	(*i)++;
 	(*j)++;
+}
+
+void	skip_quotes(t_input *input, int *i, char quote)
+{
+	int		flag;
+
+	flag = 1;
+	(*i)++;
+	while (input->line[*i] != quote && input->line[*i] != '\0')
+		(*i)++;
+	if (input->line[*i] == '\0')
+		flag = 0;
+	while ((is_space_or_null(input->line[*i]) == 0 || flag) && is_special_char(input->line[*i]) == 0)
+	{
+		if (input->line[*i] == quote)
+			flag = !flag;
+		(*i)++;
+	}
+	while (is_space(input->line[*i]) == 1)
+		(*i)++;
+	input->args_size++;
 }

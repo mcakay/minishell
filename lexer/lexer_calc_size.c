@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 17:07:49 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:24:00 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	calc_env_size(t_input *input, int i, int k)
 		}
 		j++;
 	}
+	free(str);
 }
 
 void	calc_size_double_quote(t_input *input, int *i)
@@ -94,5 +95,26 @@ void	calc_size(t_input *input)
 		}
 		else
 			i++;
+	}
+}
+
+void	calc_args_size(t_input *input)
+{
+	int	i;
+
+	i = 0;
+	while (input->line[i])
+	{
+		if (input->line[i] == '"' || input->line[i] == '\'')
+			skip_quotes(input, &i, input->line[i]);
+		else
+		{
+			while (is_space(input->line[i]) == 1)
+				i++;
+			if (input->line[i] != '\0')
+				input->args_size++;
+			while (is_space_or_null(input->line[i]) == 0)
+				i++;
+		}
 	}
 }
