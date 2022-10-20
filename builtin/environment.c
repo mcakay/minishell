@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 17:07:19 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:23:08 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	my_env(char **e)
 		printf("%s\n", e[i]);
 }
 
-//takes before =
 char	*find_key_word(char *a)
 {
 	int	i;
@@ -34,7 +33,6 @@ char	*find_key_word(char *a)
 	return (a);
 }
 
-//keyword listede var mı
 int	is_present(char **p, char *a)
 {
 	int	i;
