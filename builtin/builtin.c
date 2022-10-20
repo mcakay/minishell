@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 18:15:08 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 18:23:31 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	my_cd(t_prompt *p, t_mini *a)
 	{
 		path = getwd(NULL);
 		if ()
-			printf("cd: %s: No such file or directory\n",  a->full_cmd[1]);
+			printf(" cd: %s: No such file or directory\n",  a->full_cmd[1]);
 		else
 		{
 			path = ft_strjoin(path, a->full_cmd);
@@ -84,11 +84,5 @@ int	my_cd(t_prompt *p, t_mini *a)
 		}
 		free (path);
 	}
-	return (0);
-}
-
-int	main(void)
-{
-	my_pwd();
 	return (0);
 }
