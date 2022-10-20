@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 03:37:22 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:07:19 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_present(char **p, char *a)
 	while (p[i])
 	{
 		if (find_key_word(p[i]) == find_key_word(a))
-			return (ft_strlen(find_key_word(p[i])));
+			return (1);
 		i++;
 	}
 	return (0);
@@ -52,51 +52,39 @@ int	is_present(char **p, char *a)
 int	my_unset(t_prompt *p, t_mini *a)
 {
 	int		i;
-	char	**temp;
 
 	i = 1;
 	while (a->full_cmd[i])
 	{
 		if (is_present(p->env, a->full_cmd[i]))
 		{
-			temp = del_env(p->env, a->full_cmd[i]);
-			if (!temp)
-				return (-1);
-			p->env = temp;
-			free (temp);
-		}
-		if (is_present(p->env_ex, a->full_cmd[i]))
-		{
-			temp = del_env(p->env_ex, a->full_cmd[i]);
-			if (!temp)
-				return (-1);
-			p->env_ex = temp;
-			free (temp);
+			if (!del_env(p->env, a->full_cmd[i]))
+				return (0);
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
-char	**del_env(char **p, char *a)
+int	del_env(t_prompt *p, char *a)
 {
 	char	**temp;
 	int		i;
 	int		j;
 
 	i = 0;
-	while (p[i])
+	while (p->env[i])
 		i++;
 	temp = ft_calloc(i - 1, sizeof(char *));
 	if (!temp)
 		return (0);
 	i = 0;
 	j = 0;
-	while (p[i])
+	while (p->env[i])
 	{
 		if (find_key_word(p[i]) != a)
-			temp[j++] = p[i];
+			temp[j++] = p->env[i];
 		i++;
 	}
-	return (temp);
+	return (1);
 }

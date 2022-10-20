@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/19 10:44:22 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:09:12 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,55 +22,51 @@ int	check_equal(char *a)
 	{}
 }
 
-void	my_export(t_prompt *p, t_mini *a)
+int	my_export(t_prompt *p, t_mini *a)
 {
 	int	i;
 
 	i = 1;
-	if (!a->full_cmd[i])
-		printf_export();
+	if (check_valid)
+		return (0);
 	while (a->full_cmd[i])
 	{
-		if (is_present(p->env, a->full_cmd[i]))
+		if (check_valid)
+			return (0);
+		else if (is_present(p->env, a->full_cmd[i]))
 		{
-			change_env
+			delete_env;
+			add_env;
 		}
-		else if (check_equal(a->full_cmd[i]))
-		{
-			add_env_ex
-		}
-		else
-			add_env
+		else ()
+			add_env;
 		i++;
 	}
 }
 
-void	print_export();
-{}
-
-//fix
-char	**change_env(t_prompt *p, char **p, char *a)
+char	**add_env(t_prompt *p, char *a)
 {
 	char	**temp;
 	int		i;
 	int		j;
 
 	i = 0;
-	while (p[i])
+	while (p->env[i])
 		i++;
-	temp = ft_calloc(i - 1, sizeof(char *));
+	temp = ft_calloc(i + 1, sizeof(char *));
 	if (!temp)
 		return (0);
 	i = 0;
-	j = 0;
-	while (p[i])
+	while (p->env[i])
 	{
-		if (find_key_word(p[i]) != a)
-			temp[j++] = p[i];
+		temp[i] = p->env[i];
 		i++;
 	}
-	return (temp);
+	temp[i] = ft_calloc(ft_strlen(a) + 1, sizeof(char));
+	if (!temp[i])
+		return (0);
+	temp[i] = a;
+	p->env[i] = temp[i];
+	free (temp);
+	return (1);
 }
-
-char	**add_env(t_prompt *p, char **p, char *a)
-{}
