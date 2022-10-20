@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 18:23:31 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 19:44:30 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,39 +50,20 @@ void	my_echo(t_mini *a)
 
 int	my_cd(t_prompt *p, t_mini *a)
 {
-	char	*path;
+	char	*home;
 	int		i;
 
 	if (!a->full_cmd[1])
-		return (0);
-	else if (a->full_cmd[1][0] == '.')
 	{
-		if (a->full_cmd[1][1] == '.')
-		{
-			path = getwd(NULL);
-			i = ft_strlen(path) - 1;
-			while (path[i])
-			{
-				if (i == '\\')
-					path[i] == 0;
-				i--;
-			}
-			chdir (path);
-			free (path);
-		}
-		return (0);
+		home = getenv("HOME");
+		chdir(home);
 	}
 	else
 	{
-		path = getwd(NULL);
-		if ()
-			printf(" cd: %s: No such file or directory\n",  a->full_cmd[1]);
-		else
+		if (chdir(a->full_cmd[1]) == -1)
 		{
-			path = ft_strjoin(path, a->full_cmd);
-			chdir();
+			printf("", %s);
 		}
-		free (path);
 	}
 	return (0);
 }

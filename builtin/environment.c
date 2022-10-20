@@ -6,20 +6,20 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 17:23:08 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 19:41:23 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "../minishell.h"
 
-void	my_env(char **e)
+void	my_env(t_prompt *p)
 {
 	int	i;
 
 	i = 0;
-	while (e[i])
-		printf("%s\n", e[i]);
+	while (p->env[i])
+		printf("%s\n", p->env[i]);
 }
 
 char	*find_key_word(char *a)
