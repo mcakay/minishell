@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:44:16 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 17:41:16 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:46:47 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ void	init_dollar(t_input *input)
 				append_str(rtn, input->line, &i, &j);
 		}
 		else
-			add_env(input, rtn, &i, &j);
+		{
+			if (input->line[i] == '$')
+				i += add_env(input, rtn, &i, &j);
+			else
+				append_str(rtn, input->line, &i, &j);
+		}
 	}
 	rtn[j] = '\0';
 	free(input->line);
