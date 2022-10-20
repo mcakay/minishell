@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 20:29:55 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 03:36:21 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 16:53:25 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,11 @@ int	is_space(char c)
 	if (c == ' ' || c == '\t')
 		return (1);
 	return (0);
+}
+
+void	append_str(char *s1, char *s2, int *i, int *j)
+{
+	s1[*j] = s2[*i];
+	(*i)++;
+	(*j)++;
 }

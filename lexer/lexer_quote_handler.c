@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 11:39:39 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/20 05:00:19 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,21 @@
 void	quote_open(t_input *input, int *j, int *i, char quote)
 {
 	int		k;
+	int		flag;
 
+	flag = 1;
 	k = 0;
 	(*i)++;
 	while (input->line[*i + k] != quote && input->line[*i + k] != '\0')
 		k++;
-	while (is_space_or_null(input->line[*i + k]) == 0 && is_special_char(input->line[*i + k]) == 0)
+	if (input->line[*i + k] == '\0')
+		flag = 0;
+	while ((is_space_or_null(input->line[*i + k]) == 0 || flag) && is_special_char(input->line[*i + k]) == 0)
+	{
+		if (input->line[*i + k] == quote)
+			flag = !flag;
 		k++;
+	}
 	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
 	while (is_space(input->line[*i + k]) == 1)
 		k++;
@@ -33,12 +41,28 @@ void	quote_open(t_input *input, int *j, int *i, char quote)
 void	quote_out(t_input *input, int *j, int *i)
 {
 	int		k;
+	int		flag;
+	char	mark;
 
+	flag = 0;
 	k = 0;
+	mark = 0;
 	while(is_space(input->line[*i]) == 1)
 		(*i)++;
-	while (is_space_or_null(input->line[*i + k]) == 0 && is_special_char(input->line[*i + k]) == 0)
+	while ((is_space_or_null(input->line[*i + k]) == 0 || flag) && (is_special_char(input->line[*i + k]) == 0 || flag))
+	{
+		if ((input->line[*i + k] == '"' || input->line[*i + k] == '\'') && !mark)
+		{
+				mark = input->line[*i + k];
+				flag = !flag;
+		}
+		else if (mark && input->line[*i + k] == mark)
+		{
+			flag = !flag;
+			mark = 0;
+		}
 		k++;
+	}
 	input->args[*j] = ft_substr(input->line, *i, k);
 	while (is_space(input->line[*i + k]) == 1)
 		k++;

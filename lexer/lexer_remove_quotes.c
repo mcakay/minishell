@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/17 03:36:20 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/18 21:46:36 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*remove_quotes(char *str)
 		{
 			mark = str[i];
 			i++;
-			while (str[i] != mark)
+			while (str[i] != mark && str[i])
 			{
 				rtn[j] = str[i];
 				i++;
