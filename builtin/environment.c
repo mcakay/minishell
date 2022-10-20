@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:41:23 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 19:54:50 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	my_env(t_prompt *p)
 	int	i;
 
 	i = 0;
-	while (p->env[i])
-		printf("%s\n", p->env[i]);
+	while (p->envp[i])
+		printf("%s\n", p->envp[i]);
 }
 
 char	*find_key_word(char *a)
@@ -54,9 +54,9 @@ int	my_unset(t_prompt *p, t_mini *a)
 	i = 1;
 	while (a->full_cmd[i])
 	{
-		if (is_present(p->env, a->full_cmd[i]))
+		if (is_present(p->envp, a->full_cmd[i]))
 		{
-			if (!del_env(p->env, a->full_cmd[i]))
+			if (!del_env(p->envp, a->full_cmd[i]))
 				return (0);
 		}
 		i++;
@@ -71,17 +71,17 @@ int	del_env(t_prompt *p, char *a)
 	int		j;
 
 	i = 0;
-	while (p->env[i])
+	while (p->envp[i])
 		i++;
 	temp = ft_calloc(i - 1, sizeof(char *));
 	if (!temp)
 		return (0);
 	i = 0;
 	j = 0;
-	while (p->env[i])
+	while (p->envp[i])
 	{
 		if (find_key_word(p[i]) != a)
-			temp[j++] = p->env[i];
+			temp[j++] = p->envp[i];
 		i++;
 	}
 	return (1);

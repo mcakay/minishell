@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:51:22 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 20:24:47 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,18 @@ int	my_cd(t_prompt *p, t_mini *a)
 	}
 	return (0);
 }
+
+/*
+int	main()
+{
+	s_mini		*a;
+	s_prompt	*p;
+
+	p = ft_calloc(1, sizeof(s_prompt));
+	p->
+
+	p->
+	a->
+	return (0);
+}
+*/

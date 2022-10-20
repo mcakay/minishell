@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 18:23:46 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 19:55:28 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	my_export(t_prompt *p, t_mini *a)
 	{
 		if (!check_valid(a->full_cmd[i]))
 			return (0);
-		else if (is_present(p->env, a->full_cmd[i]))
+		else if (is_present(p->envp, a->full_cmd[i]))
 		{
-			delete_env(p->env, a->full_cmd[i]);
-			add_env(p->env, a->full_cmd[i]);
+			delete_env(p->envp, a->full_cmd[i]);
+			add_env(p->envp, a->full_cmd[i]);
 		}
 		else
-			add_env(p->env, a->full_cmd[i]);
+			add_env(p->envp, a->full_cmd[i]);
 		i++;
 	}
 	return (1);
@@ -74,22 +74,22 @@ char	**add_env(t_prompt *p, char *a)
 	int		j;
 
 	i = 0;
-	while (p->env[i])
+	while (p->envp[i])
 		i++;
 	temp = ft_calloc(i + 1, sizeof(char *));
 	if (!temp)
 		return (0);
 	i = 0;
-	while (p->env[i])
+	while (p->envp[i])
 	{
-		temp[i] = p->env[i];
+		temp[i] = p->envp[i];
 		i++;
 	}
 	temp[i] = ft_calloc(ft_strlen(a) + 1, sizeof(char));
 	if (!temp[i])
 		return (0);
 	temp[i] = a;
-	p->env[i] = temp[i];
+	p->envp[i] = temp[i];
 	free (temp);
 	return (1);
 }
