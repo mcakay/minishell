@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:44:30 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/20 19:51:22 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ void	my_echo(t_mini *a)
 int	my_cd(t_prompt *p, t_mini *a)
 {
 	char	*home;
-	int		i;
 
 	if (!a->full_cmd[1])
 	{
 		home = getenv("HOME");
+		while (*home != '=')
+			home++;
+		home++;
 		chdir(home);
 	}
 	else
 	{
 		if (chdir(a->full_cmd[1]) == -1)
 		{
-			printf("", %s);
+			printf("minishell: cd: %s:", a->full_cmd[1]);
+			printf(" No such file or directory");
 		}
 	}
 	return (0);
