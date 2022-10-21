@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:37:39 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:53:56 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/21 13:34:57 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 
 typedef struct s_prompt
 {
-	t_list	*cmds;
 	char	**envp;
-	pid_t	pid;
 }		t_prompt;
 
 typedef struct s_mini
