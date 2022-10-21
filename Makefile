@@ -4,22 +4,34 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
+READLINE = -L/usr/include -lreadline
+
+LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c ./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c \
+./lexer/lexer_envs.c ./lexer/lexer_calc_size.c
+
+PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_env.c ./parser/parser_path.c
+
+EXECUTOR = ./executor/executor.c ./executor/executor_access.c
+
 LIBFT = ./libft/libft.a
 
-SRCS = main.c
+SRCS = main.c $(LEXER) $(PARSER) $(EXECUTOR)
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJS)
+	@$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)  
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	@make -C ./libft
+
+$(READLINE):
+	@make -C ./lib/readline
 
 clean:
 	@rm -f $(OBJS)

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:02 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/21 01:49:17 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/21 01:53:17 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
-int main(int argc, char **argv, char **envp)
+void	get_path(t_prompt *prompt)
 {
-	char 	**lexed;
-	t_prompt parsed;
+	int i;
 
-	(void)argc;
-	(void)argv;
-	while (1)
+	i = 0;
+	while (prompt->envp[i])
 	{
-		char *line = readline("minishell$ ");
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
+		if (ft_strncmp(prompt->envp[i], "PATH=", 5) == 0)
+		{
+			prompt->path = ft_split(prompt->envp[i] + 5, ':');
+			break ;
+		}
+		i++;
 	}
-	return (0);
 }

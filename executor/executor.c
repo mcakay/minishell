@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:02 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/21 06:11:43 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
 
-int main(int argc, char **argv, char **envp)
+void	exec(t_prompt parsed, char *cmd)
 {
-	char 	**lexed;
-	t_prompt parsed;
+	printf("asd\n");
+	execve(cmd, parsed.cmds->full_cmd, parsed.envp);
+}
 
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		char *line = readline("minishell$ ");
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
-	}
-	return (0);
+void	executor(t_prompt parsed)
+{
+	char *cmd;
+
+	cmd = access_check(parsed.path, parsed.cmds->full_cmd[0]);
+	
+	if (cmd)
+		exec(parsed, cmd);
+	else
+		printf("minishell: %s: command not found\n", parsed.cmds->full_cmd[0]);
 }

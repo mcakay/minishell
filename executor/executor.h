@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:02 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/21 05:49:34 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-int main(int argc, char **argv, char **envp)
-{
-	char 	**lexed;
-	t_prompt parsed;
+# include "../minishell.h"
 
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		char *line = readline("minishell$ ");
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
-	}
-	return (0);
-}
+//access
+char 	*access_check(char **path, char *cmd);
+
+#endif

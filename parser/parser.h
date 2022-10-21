@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:02 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/20 22:30:59 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/21 05:38:26 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-int main(int argc, char **argv, char **envp)
-{
-	char 	**lexed;
-	t_prompt parsed;
+# include "../minishell.h"
 
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		char *line = readline("minishell$ ");
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
-	}
-	return (0);
-}
+//envp
+void	copy_envp(char **envp, t_prompt *prompt);
+
+//cmd
+void	get_cmds(t_command **cmds, char **strs);
+
+//path
+void	get_path(t_prompt *prompt);
+
+#endif

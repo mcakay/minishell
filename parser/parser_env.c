@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:02 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/20 22:31:34 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/20 22:31:35 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
-int main(int argc, char **argv, char **envp)
+void	copy_envp(char **envp, t_prompt *prompt)
 {
-	char 	**lexed;
-	t_prompt parsed;
+	int i;
 
-	(void)argc;
-	(void)argv;
-	while (1)
+	i = 0;
+	while (envp[i])
+		i++;
+	prompt->envp = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (envp[i])
 	{
-		char *line = readline("minishell$ ");
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
+		prompt->envp[i] = ft_strdup(envp[i]);
+		i++;
 	}
-	return (0);
+	prompt->envp[i] = NULL;
 }
