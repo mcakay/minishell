@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:26:51 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 19:55:27 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 21:58:41 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_pipes(t_prompt *prompt)
 
 	i = 0;
 	curr = prompt->cmds;
-	while (curr->next)
+	while (curr)
 	{
 		pipe(curr->fd);
 		curr = curr->next;
