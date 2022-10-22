@@ -6,12 +6,12 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:11:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 14:42:05 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL
-#define MINISHELL
+#ifndef MINISHELL_H
+#define MINISHELL_H
 
 #include <stdio.h>
 #include "./libft/libft.h"
@@ -24,6 +24,7 @@ typedef struct s_command
 	char	*full_path;
 	int		infile;
 	int		outfile;
+	int		fd[2];
 	struct s_command *next;
 	struct s_command *prev;
 }				t_command;

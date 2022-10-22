@@ -6,59 +6,64 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 04:16:55 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 15:51:10 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	exec(t_command *first, t_command *second, t_prompt parsed)
+void	exec(t_command *cmd, t_prompt parsed)
 {
-	int fd[2];
-	pid_t pid1;
-	pid_t pid2;
+	pid_t	pid;
 
-	pid1 = fork();
-	pipe(fd);
-	if (pid1 == 0)
+	pid = fork();
+	if (pid == 0)
 	{
-		pid2 = fork();
-		if (pid2 == 0)
-		{
-			dup2(fd[1], 1);
-			close(fd[0]);
-			close(fd[1]);
-			execve(first->full_path, first->full_cmd, parsed.envp);
-		}
+		if (cmd->prev == NULL)
+			dup2(cmd->fd[1], 1);
 		else
 		{
-			dup2(fd[0], 0);
-			close(fd[0]);
-			close(fd[1]);
-			execve(second->full_path, second->full_cmd, parsed.envp);
+			dup2(cmd->prev->fd[0], cmd->fd[0]);
+			if (cmd->next != NULL)
+				dup2(cmd->fd[1], 1);
+			else
+				dup2(cmd->fd[1], cmd->next->fd[0]);
 		}
-		waitpid(pid2, NULL, 0);
+		close(cmd->fd[0]);
+		close(cmd->fd[1]);
+		execve(cmd->full_path, cmd->full_cmd, parsed.envp);
 	}
-	waitpid(pid1, NULL, 0);
-	return ;
+	else
+		waitpid(pid, NULL, 0);
 }
 
 void	executor(t_prompt parsed)
 {
+	t_command	*curr;
+	pid_t		pid;
+
 	add_path_to_cmds(&parsed);
-	t_command *curr;
-	curr = parsed.cmds;
+	init_pipes(&parsed);
+	curr = parsed.cmds->next;
+	if (curr == NULL)
+	{
+		pid = fork();
+		if (pid == 0)
+			execve(parsed.cmds->full_path, parsed.cmds->full_cmd, parsed.envp);
+		else
+			waitpid(pid, NULL, 0);
+	}
 	while (curr)
 	{
-		if (curr->next)
-		{
-			exec(curr, curr->next, parsed);
-			curr = curr->next->next;
-		}
+		pid = fork();
+		if (pid == 0)
+			exec(curr->prev, parsed);
 		else
 		{
-			execve(curr->full_path, curr->full_cmd, parsed.envp);
-			curr = curr->next;
+			close(curr->prev->fd[0]);
+			close(curr->prev->fd[1]);
+			waitpid(pid, NULL, 0);
 		}
+		curr = curr->next;
 	}
 }

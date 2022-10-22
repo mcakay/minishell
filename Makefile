@@ -11,7 +11,7 @@ LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counte
 
 PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_env.c ./parser/parser_path.c
 
-EXECUTOR = ./executor/executor.c ./executor/executor_access.c
+EXECUTOR = ./executor/executor.c ./executor/executor_access.c ./executor/executor_pipes.c
 
 LIBFT = ./libft/libft.a
 

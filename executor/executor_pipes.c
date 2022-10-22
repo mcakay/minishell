@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   executor_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:30:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 11:50:47 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/22 13:26:51 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/22 14:42:37 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "executor.h"
 
-void	init_prompt(t_prompt *prompt, char **envp, char **strs)
+void	init_pipes(t_prompt *prompt)
 {
-	t_command *cmds;
+	t_command	*curr;
 
-	cmds = NULL;
-	prompt->pid = getpid();
-	copy_envp(envp, prompt);
-	get_cmds(&cmds, strs);
-	get_path(prompt);
-	prompt->cmds = cmds;
-}
-
-t_prompt	parser(char **strs, char **envp)
-{
-	t_prompt	prompt;
-
-	init_prompt(&prompt, envp, strs);
-	return (prompt);
+	curr = prompt->cmds;
+	while (curr)
+	{
+		pipe(curr->fd);
+		curr = curr->next;
+	}
 }
