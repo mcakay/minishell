@@ -47,7 +47,5 @@ char	**lexer(char *line, char **envp)
 		input.args[i] = remove_quotes(input.args[i]);
 		i++;
 	}
-	for (int i = 0; input.args[i] != NULL; i++)
-		printf("args[%d]=%s\n", i, input.args[i]);
 	return (input.args);
 }

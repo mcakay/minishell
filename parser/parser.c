@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:30:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 05:41:16 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 04:09:28 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ t_prompt	parser(char **strs, char **envp)
 {
 	t_prompt	prompt;
 
-	for (int i = 0; strs[i]; i++)
-		printf("strs[%d]:%s\n", i, strs[i]);
 	init_prompt(&prompt, envp, strs);
 	return (prompt);
 }

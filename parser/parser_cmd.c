@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:51:52 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 05:26:57 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 04:11:50 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,4 @@ void	get_cmds(t_command **cmds, char **strs)
 			i++;
 	}
 	add_node(cmds, strs, i, flag);
-	t_command *curr = *cmds;
-	int j = 0;
-	while (curr)
-	{
-		for (int a = 0; curr->full_cmd[a]; a++)
-			printf("cmd[%d]:command[%d]:%s\n",j, a, curr->full_cmd[a]);
-		curr = curr->next;
-		j++;
-	}
-	curr = *cmds;
-	curr = curr->next;
 }

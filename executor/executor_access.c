@@ -6,11 +6,23 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 06:02:24 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/21 23:36:02 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+void	add_path_to_cmds(t_prompt *prompt)
+{
+	t_command	*curr;
+
+	curr = prompt->cmds;
+	while (curr)
+	{
+		curr->full_path = access_check(prompt->path, curr->full_cmd[0]);
+		curr = curr->next;
+	}
+}
 
 char	*add_path(char *path, char *cmd)
 {
