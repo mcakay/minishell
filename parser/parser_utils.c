@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/23 00:10:54 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/22 23:25:56 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/22 23:27:25 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
-int main(int argc, char **argv, char **envp)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char 	**lexed;
-	t_prompt parsed;
-
-	(void)argc;
-	(void)argv;
-	while (1)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		char *line = readline("zortshell$ ");
-		if (*line == '\0')
-			continue;
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
+		s1++;
+		s2++;
 	}
-	return (0);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

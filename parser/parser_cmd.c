@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:51:52 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 04:11:50 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/23 05:58:52 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_node(t_command **root, char **strs, int i, int flag)
 }
 
 
-void	get_cmds(t_command **cmds, char **strs)
+void	get_cmds(t_prompt *prompt, t_command **cmds, char **strs)
 {
 	int i;
 	int	flag;
@@ -64,6 +64,16 @@ void	get_cmds(t_command **cmds, char **strs)
 			add_node(cmds, strs, i, flag);
 			flag = i + 1;
 			i++;
+		}
+		else if (is_redirection(strs[i]) == 1 && strs[i + 1])
+		{
+			add_node_outfile(&prompt->outfile_list, strs[i + 1]);
+			i += 2;
+		}
+		else if (is_redirection(strs[i]) == 2 && strs[i + 1])
+		{
+			add_node_infile(&prompt->infile_list, strs[i + 1]);
+			i += 2;
 		}
 		else
 			i++;

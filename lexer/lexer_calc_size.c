@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 00:34:28 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/22 23:12:04 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	calc_args_size(t_input *input)
 			while (is_space_or_null(input->line[i]) == 0)
 			{
 				if (is_special_char(input->line[i]) == 1)
-					input->args_size++;
+					input->args_size += 2;
 				i++;
 			}
 		}

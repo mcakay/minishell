@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 14:42:05 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/23 05:55:02 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "./libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "redirection.h"
 
 typedef struct s_command
 {
@@ -34,7 +35,8 @@ typedef struct s_prompt
 	t_command	*cmds;
 	char		**envp;
 	char		**path;
-	pid_t		pid;
+	t_infile *infile_list;
+	t_outfile *outfile_list;
 }				t_prompt;
 
 //lexer

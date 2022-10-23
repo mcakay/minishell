@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/23 00:10:54 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/22 23:29:29 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/23 05:10:16 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef REDIRECTION_H
+# define REDIRECTION_H
 
-int main(int argc, char **argv, char **envp)
+typedef struct s_infile
 {
-	char 	**lexed;
-	t_prompt parsed;
+	char	*infile;
+	struct s_infile *next;
+}			t_infile;
 
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		char *line = readline("zortshell$ ");
-		if (*line == '\0')
-			continue;
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
-	}
-	return (0);
-}
+typedef struct s_outfile
+{
+	char	*outfile;
+	struct s_outfile *next;
+}			t_outfile;
+
+#endif

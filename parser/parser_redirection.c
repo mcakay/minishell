@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_redirection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/23 00:10:54 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/22 23:27:18 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/23 05:08:23 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parser.h"
 
-int main(int argc, char **argv, char **envp)
+int	is_redirection(char *str)
 {
-	char 	**lexed;
-	t_prompt parsed;
-
-	(void)argc;
-	(void)argv;
-	while (1)
-	{
-		char *line = readline("zortshell$ ");
-		if (*line == '\0')
-			continue;
-		add_history(line);
-		lexed = lexer(line, envp);
-		parsed = parser(lexed, envp);
-		executor(parsed);
-	}
-	return (0);
+	if (ft_strcmp(str, ">") == 0)
+		return (1);
+	else if (ft_strcmp(str, "<") == 0)
+		return (2);
+	else if (ft_strcmp(str, ">>") == 0)
+		return (3);
+	else if (ft_strcmp(str, "<<") == 0)
+		return (4);
+	else
+		return (0);
 }

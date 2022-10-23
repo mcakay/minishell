@@ -27,6 +27,7 @@ int	init_input(t_input *input, char *line, char **envp)
 	init_envs(input, envp);
 	calc_size(input);
 	calc_args_size(input);
+	printf("args_size: %d\n", input->args_size);
 	init_dollar(input);
 	quote_split(input);
 	return (0);
@@ -37,8 +38,6 @@ char	**lexer(char *line, char **envp)
 	t_input input;
 	int		i;
 
-	if (*line == '\0')
-		return (NULL);
 	if (init_input(&input, line, envp))
 		exit(1);
 	i = 0;
@@ -47,5 +46,7 @@ char	**lexer(char *line, char **envp)
 		input.args[i] = remove_quotes(input.args[i]);
 		i++;
 	}
+	for (int i = 0; input.args[i]; i++)
+		printf("args[%d] = %s\n", i, input.args[i]);
 	return (input.args);
 }
