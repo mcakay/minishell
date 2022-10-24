@@ -6,12 +6,11 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:54:50 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:20:22 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "../minishell.h"
 
 void	my_env(t_prompt *p)
 {
@@ -19,7 +18,7 @@ void	my_env(t_prompt *p)
 
 	i = 0;
 	while (p->envp[i])
-		printf("%s\n", p->envp[i]);
+		printf("%s\n", p->envp[i++]);
 }
 
 char	*find_key_word(char *a)
@@ -27,7 +26,7 @@ char	*find_key_word(char *a)
 	int	i;
 
 	i = 0;
-	while (a[i] != '=')
+	while (a[i] != '=' && a[i])
 		i++;
 	a[i] = '\0';
 	return (a);
@@ -56,7 +55,7 @@ int	my_unset(t_prompt *p, t_mini *a)
 	{
 		if (is_present(p->envp, a->full_cmd[i]))
 		{
-			if (!del_env(p->envp, a->full_cmd[i]))
+			if (!del_env(p, a->full_cmd[i]))
 				return (0);
 		}
 		i++;
@@ -80,7 +79,7 @@ int	del_env(t_prompt *p, char *a)
 	j = 0;
 	while (p->envp[i])
 	{
-		if (find_key_word(p[i]) != a)
+		if (find_key_word(p->envp[i]) != a)
 			temp[j++] = p->envp[i];
 		i++;
 	}

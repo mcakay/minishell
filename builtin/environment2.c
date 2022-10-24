@@ -6,12 +6,11 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/20 19:55:28 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:04:43 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "../minishell.h"
 
 int	check_equal(char *a)
 {
@@ -57,21 +56,20 @@ int	my_export(t_prompt *p, t_mini *a)
 			return (0);
 		else if (is_present(p->envp, a->full_cmd[i]))
 		{
-			delete_env(p->envp, a->full_cmd[i]);
-			add_env(p->envp, a->full_cmd[i]);
+			del_env(p, a->full_cmd[i]);
+			add_env(p, a->full_cmd[i]);
 		}
 		else
-			add_env(p->envp, a->full_cmd[i]);
+			add_env(p, a->full_cmd[i]);
 		i++;
 	}
 	return (1);
 }
 
-char	**add_env(t_prompt *p, char *a)
+int	add_env(t_prompt *p, char *a)
 {
 	char	**temp;
 	int		i;
-	int		j;
 
 	i = 0;
 	while (p->envp[i])

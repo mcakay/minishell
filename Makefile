@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./libft/libft.a
 
-BUILTIN = ./builtin/builtin.c ./builtin/environment.c
+BUILTIN = ./builtin/builtin.c ./builtin/environment.c ./builtin/environment2.c
 
 SRCS = $(BUILTIN)
 
@@ -15,7 +15,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJS) -g -fsanitize=address
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
