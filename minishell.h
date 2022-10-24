@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/23 05:55:02 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/23 19:14:25 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_command
 	int		fd[2];
 	struct s_command *next;
 	struct s_command *prev;
+	t_infile *infile_list;
+	t_outfile *outfile_list;
 }				t_command;
 
 typedef struct s_prompt
@@ -35,12 +37,10 @@ typedef struct s_prompt
 	t_command	*cmds;
 	char		**envp;
 	char		**path;
-	t_infile *infile_list;
-	t_outfile *outfile_list;
 }				t_prompt;
 
 //lexer
 char		**lexer(char *line, char **envp);
-t_prompt	parser(char **strs, char **envp);
+t_prompt	*parser(char **strs, char **envp);
 void		executor(t_prompt parsed);
 #endif

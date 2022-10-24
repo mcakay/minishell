@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/22 17:56:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/23 15:23:32 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_path_to_cmds(t_prompt *prompt)
 	{
 		curr->full_path = access_check(prompt->path, curr->full_cmd[0]);
 		if (curr->full_path == NULL)
-			return (printf("minishell: %s: command not found\n", curr->full_cmd[0]));
+			return (printf("zortshell: %s: command not found\n", curr->full_cmd[0]));
 		curr = curr->next;
 	}
 	return (0);

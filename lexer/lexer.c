@@ -23,12 +23,11 @@ int	init_input(t_input *input, char *line, char **envp)
 	if (input->double_quotes % 2 != 0 || input->single_quotes % 2 != 0)
 		return (printf("Syntax Error: quotes not closed\n"));
 	input->line = ft_strdup(line);
-	free(line);
 	init_envs(input, envp);
 	calc_size(input);
 	calc_args_size(input);
 	printf("args_size: %d\n", input->args_size);
-	init_dollar(input);
+	//init_dollar(input);
 	quote_split(input);
 	return (0);
 }
