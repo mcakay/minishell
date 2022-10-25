@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 19:46:42 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 19:55:02 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ void	print_export(t_prompt *p)
 		i++;
 	}
 	i = 0;
-	while (p->envp[i] && !check_equal(p->envp[i]))
+	while (p->envp[i])
 	{
-		printf("declare -x %s\n", p->envp[i]);
+		if (!check_equal(p->envp[i]))
+			printf("declare -x %s\n", p->envp[i]);
 		i++;
 	}
 }
@@ -111,7 +112,7 @@ int	my_export(t_prompt *p, t_mini *a)
 	}
 	while (a->full_cmd[i])
 	{
-		if (check_equal(a->full_cmd[i]) && !check_valid(a->full_cmd[i]))
+		if (!check_valid(a->full_cmd[i]))
 			return (0);
 		else if (check_equal(a->full_cmd[i])
 			&& is_present(p->envp, a->full_cmd[i]))
