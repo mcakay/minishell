@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 15:27:39 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:53:22 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,44 @@ int	check_valid(char *a)
 	return (1);
 }
 
-//kullanabiliriz
-char	*print_in_order(t_prompt *p, const char *a)
+char	*find_first(t_prompt *p, const char *a)
 {
+	char	*first;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (p->envp[i])
+	{
+		j = i + 1;
+		while (p->envp[j] && (!a
+				|| (ft_strncmp(a, p->envp[j], ft_strlen(a)) < 0)))
+		{
+			if (ft_strncmp(p->envp[i], p->envp[j], ft_strlen(p->envp[i])) > 0)
+				first = p->envp[j++];
+		}
+		i++;
+	}
+	return (first);
 }
 
-//alfabeitk olsun
 void	print_export(t_prompt *p)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*a;
 
+	a = find_first(p, 0);
+	i = 0;
 	while (check_equal(p->envp[i]) && p->envp[i])
 	{
+		j = 0;
 		printf("declare -x ");
-		while (p->envp[i][j] != '=')
-			printf("%c", p->envp[i][j++]);
-		printf("%c\"", p->envp[i][j++]);
-		printf("%s\"", &p->envp[i][j]);
+		while (a[j] != '=')
+			printf("%c", a[j++]);
+		printf("%c\"", a[j++]);
+		printf("%s\"", &a[j]);
+		a = find_first(p, a);
 		i++;
 	}
 	i = 0;

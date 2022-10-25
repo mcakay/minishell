@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 14:56:39 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:53:37 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	my_cd(t_prompt *p, t_mini *a)
 	return (0);
 }
 
-int	main()
+int	main(void)
 {
 	t_mini		*a;
 	t_prompt	*p;
@@ -99,9 +99,8 @@ int	main()
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(4, sizeof(char));
-	a->full_cmd[0] = ft_strdup("cd");
-	a->full_cmd[1] = ft_strdup("JKSHDGK");
+	a->full_cmd[0] = ft_calloc(2, sizeof(char));
+	a->full_cmd[0] = ft_strdup("export");
 
 	//my_env(p);
 	my_export(p, a);
@@ -116,4 +115,4 @@ int	main()
 //echo tamam
 //cd tamam
 //unset tamam
-//export ???
+//export ??? ALLLLLAAAH
