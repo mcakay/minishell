@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/24 16:25:25 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 13:33:28 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ int	my_cd(t_prompt *p, t_mini *a)
 	{
 		if (chdir(a->full_cmd[1]) == -1)
 		{
-			perror("");
-			//printf("minishell: cd: %s:", a->full_cmd[1]);
-			//printf(" No such file or directory");
+			perror(a->full_cmd[1]);
 			return (0);
 		}
 	}
@@ -87,36 +85,24 @@ int	main()
 
 	p = ft_calloc(1, sizeof(t_prompt));
 	p->envp = ft_calloc(3, sizeof(char *));
-	p->envp[0] = getenv("PWD");
-	p->envp[1] = getenv("HOME");
-
+	p->envp[0] = ft_strjoin(ft_strdup("PWD="), getenv("PWD"));
+	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
 	a->full_cmd[0] = ft_calloc(5, sizeof(char));
-	a->full_cmd[0][0] = 'e';
-	a->full_cmd[0][1] = 'c';
-	a->full_cmd[0][2] = 'h';
-	a->full_cmd[0][3] = 'o';
-	a->full_cmd[0][3] = 0;
-	a->full_cmd[1] = ft_calloc(5, sizeof(char));
-	a->full_cmd[1][0] = '.';
-	a->full_cmd[1][1] = '.';
-	a->full_cmd[1][2] = 0;
-	a->full_cmd[1][3] = 0;
-	//a->full_cmd[1][4] = 0;
+	a->full_cmd[0] = ft_strdup("export");
+	a->full_cmd[1] = ft_strdup("a =1");
 
-	/*
 	my_env(p);
-	my_unset(p, a);
-	printf("şimdi:");
+	my_export(p, a);
+	printf("şimdi:\n");
 	my_env(p);
-	*/
-	my_env(p);
+
 	return (0);
 }
 //pwd tamam
 //my_env tamam
 //echo segmen
-//unset çalışmıyo
+//unset tamam
 //export segmen
 //cd bus
