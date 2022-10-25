@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 16:48:50 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:54:07 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	main(void)
 	p->envp[0] = ft_strjoin(ft_strdup("PWD="), getenv("PWD"));
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
+		p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
 	a->full_cmd[0] = ft_calloc(3, sizeof(char));
