@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 17:02:48 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 18:27:58 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,10 @@ void	my_env(t_prompt *p)
 
 int	my_cd(t_prompt *p, t_mini *a)
 {
-	char	*path;
+	char	*pwd;
 
 	if (!a->full_cmd[1])
-	{
-		path = getenv("HOME");
-		while (*path != '=')
-			path++;
-		path++;
-		chdir(path);
-	}
+		chdir(getenv("HOME"));
 	else
 	{
 		if (chdir(a->full_cmd[1]) == -1)
@@ -81,10 +75,12 @@ int	my_cd(t_prompt *p, t_mini *a)
 	}
 	if (is_present(p->envp, "OLDPWD"))
 		del_env(p, "OLDPWD");
-	add_env(p, getenv("OLDPWD"));
+	add_env(p, ft_strjoin(ft_strdup("OLDPWD="), getenv("OLDPWD")));
 	if (is_present(p->envp, "PWD"))
 		del_env(p, "PWD");
-	add_env(p, getenv("PWD"));
+	pwd = getwd(NULL);
+	add_env(p, ft_strjoin(ft_strdup("PWD="), pwd));
+	free (pwd);
 	return (0);
 }
 
@@ -100,22 +96,24 @@ int	main(void)
 	p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(3, sizeof(char));
+	a->full_cmd[0] = ft_calloc(2, sizeof(char));
 	a->full_cmd[0] = ft_strdup("cd");
-	a->full_cmd[0] = ft_strdup("..");
+	//a->full_cmd[1] = ft_strdup("");
 	//a->full_cmd[1] = ft_strdup("a");
 
 	//my_export(p, a);
 	//a->full_cmd[1] = 0;
 	my_env(p);
+	my_pwd();
 	my_cd(p, a);
 	my_env(p);
+	my_pwd();
 	return (0);
 }
 
 //pwd tamam
 //my_env tamam (belki export da ekle)
 //echo tamam
-//cd ENV PWDLER
+//cd tamam
 //unset tamam
 //export  " " case i ve yazdırma
