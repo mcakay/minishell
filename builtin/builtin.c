@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 13:33:28 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 13:49:09 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main()
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(5, sizeof(char));
+	a->full_cmd[0] = ft_calloc(3, sizeof(char));
 	a->full_cmd[0] = ft_strdup("export");
 	a->full_cmd[1] = ft_strdup("a =1");
 
@@ -102,7 +102,7 @@ int	main()
 }
 //pwd tamam
 //my_env tamam
-//echo segmen
 //unset tamam
 //export segmen
+//echo segmen
 //cd bus

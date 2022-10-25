@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/24 16:04:43 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 13:46:40 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,23 @@ int	check_equal(char *a)
 
 int	check_valid(char *a)
 {
-	int	i;
+	int		i;
+	char	*b;
 
 	if (!check_equal(a))
 		return (0);
 	i = 0;
-	while (*a != '=')
-		a++;
-	a--;
-	if (*a == ' ')
+	b = ft_strdup(a);
+	while (b[i] != '=' && b[i])
+		i++;
+	i--;
+	if (b[i] == ' ')
 	{
-		printf("export: `%s': not a valid identifier", ++a);
+		printf("export: `%s': not a valid identifier", &b[i + 1]);
+		free (b);
 		return (0);
 	}
+	free (b);
 	return (1);
 }
 
