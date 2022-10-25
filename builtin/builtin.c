@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 15:53:37 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:36:06 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,13 @@ int	main(void)
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(2, sizeof(char));
+	a->full_cmd[0] = ft_calloc(3, sizeof(char));
 	a->full_cmd[0] = ft_strdup("export");
+	//a->full_cmd[1] = ft_strdup("a");
 
-	//my_env(p);
+	//my_export(p, a);
+	//a->full_cmd[1] = 0;
 	my_export(p, a);
-	printf("şimdi:\n");
-	my_env(p);
-
 	return (0);
 }
 
@@ -115,4 +114,4 @@ int	main(void)
 //echo tamam
 //cd tamam
 //unset tamam
-//export ??? ALLLLLAAAH
+//export  " " case i ve yazdırma

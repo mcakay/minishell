@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 15:53:22 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:32:18 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	check_equal(char *a)
 	{
 		if (a[i] == '=')
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -35,9 +36,9 @@ int	check_valid(char *a)
 	while (b[i] != '=' && b[i])
 		i++;
 	i--;
-	if (i == -1 && b[i] == ' ')
+	if (i == -1 || b[i] == ' ')
 	{
-		printf("export: `%s': not a valid identifier", &b[i + 1]);
+		printf("export: `%s': not a valid identifier\n", b);
 		free (b);
 		return (0);
 	}
@@ -72,18 +73,24 @@ void	print_export(t_prompt *p)
 	int		j;
 	char	*a;
 
-	a = find_first(p, 0);
+	//a = find_first(p, 0);
+	a = p->envp[0];
 	i = 0;
 	while (check_equal(p->envp[i]) && p->envp[i])
 	{
 		j = 0;
 		printf("declare -x ");
 		while (a[j] != '=')
-			printf("%c", a[j++]);
-		printf("%c\"", a[j++]);
-		printf("%s\"", &a[j]);
-		a = find_first(p, a);
+		{
+			printf("%c", a[j]);
+			j++;		
+		}
+		printf("%c\"", a[j]);
+		j++;
+		printf("%s\"\n", &a[j]);
+		//a = find_first(p, a);
 		i++;
+		a = p->envp[i];
 	}
 	i = 0;
 	while (!check_equal(p->envp[i]) && p->envp[i])
@@ -116,7 +123,7 @@ int	my_export(t_prompt *p, t_mini *a)
 			add_env(p, a->full_cmd[i++]);
 			free (key);
 		}
-		else
+		else if (!is_present(p->envp, a->full_cmd[i]))
 			add_env(p, a->full_cmd[i++]);
 	}
 	return (1);

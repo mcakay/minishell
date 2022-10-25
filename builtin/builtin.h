@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:37:39 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/24 16:04:55 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:11:34 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,9 @@ int		check_equal(char *a);
 int		check_valid(char *a);
 int		my_export(t_prompt *p, t_mini *a);
 int		add_env(t_prompt *p, char *a);
+void	print_export(t_prompt *p);
+char	*find_first(t_prompt *p, const char *a);
+
+
 
 #endif
