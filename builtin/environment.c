@@ -6,20 +6,11 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 13:48:10 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:56:33 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-void	my_env(t_prompt *p)
-{
-	int	i;
-
-	i = 0;
-	while (p->envp[i])
-		printf("%s\n", p->envp[i++]);
-}
 
 char	*find_key_word(char *a)
 {
@@ -94,6 +85,32 @@ int	del_env(t_prompt *p, char *a)
 		i++;
 	}
 	temp[j] = 0;
+	free (p->envp);
+	p->envp = temp;
+	return (1);
+}
+
+int	add_env(t_prompt *p, char *a)
+{
+	char	**temp;
+	int		i;
+
+	i = 0;
+	while (p->envp[i])
+		i++;
+	temp = ft_calloc(i + 2, sizeof(char *));
+	if (!temp)
+		return (0);
+	i = 0;
+	while (p->envp[i])
+	{
+		temp[i] = p->envp[i];
+		i++;
+	}
+	temp[i] = ft_calloc(ft_strlen(a) + 1, sizeof(char));
+	if (!temp[i])
+		return (0);
+	temp[i] = a;
 	free (p->envp);
 	p->envp = temp;
 	return (1);

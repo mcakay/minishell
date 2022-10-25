@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 14:23:08 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:56:39 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ void	my_echo(t_mini *a)
 	}
 	else
 		printf("\n");
+}
+
+void	my_env(t_prompt *p)
+{
+	int	i;
+
+	i = 0;
+	while (p->envp[i] && check_equal(p->envp[i]))
+		printf("%s\n", p->envp[i++]);
 }
 
 int	my_cd(t_prompt *p, t_mini *a)
@@ -94,18 +103,14 @@ int	main()
 	a->full_cmd[0] = ft_strdup("cd");
 	a->full_cmd[1] = ft_strdup("JKSHDGK");
 
-	/*
-	my_env(p);
+	//my_env(p);
 	my_export(p, a);
 	printf("şimdi:\n");
 	my_env(p);
-	*/
-	my_pwd();
-	my_cd(p, a);
-	my_pwd();
 
 	return (0);
 }
+
 //pwd tamam
 //my_env tamam (belki export da ekle)
 //echo tamam
