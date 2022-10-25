@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 16:32:18 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:50:54 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char	*find_first(t_prompt *p, const char *a)
 				|| (ft_strncmp(a, p->envp[j], ft_strlen(a)) < 0)))
 		{
 			if (ft_strncmp(p->envp[i], p->envp[j], ft_strlen(p->envp[i])) > 0)
-				first = p->envp[j++];
+				first = p->envp[j];
+			j++;
 		}
 		i++;
 	}
@@ -73,24 +74,18 @@ void	print_export(t_prompt *p)
 	int		j;
 	char	*a;
 
-	//a = find_first(p, 0);
-	a = p->envp[0];
+	a = find_first(p, 0);
 	i = 0;
-	while (check_equal(p->envp[i]) && p->envp[i])
+	while (p->envp[i] && check_equal(p->envp[i]))
 	{
 		j = 0;
 		printf("declare -x ");
 		while (a[j] != '=')
-		{
-			printf("%c", a[j]);
-			j++;		
-		}
-		printf("%c\"", a[j]);
-		j++;
+			printf("%c", a[j++]);
+		printf("%c\"", a[j++]);
 		printf("%s\"\n", &a[j]);
-		//a = find_first(p, a);
+		a = find_first(p, a);
 		i++;
-		a = p->envp[i];
 	}
 	i = 0;
 	while (!check_equal(p->envp[i]) && p->envp[i])
