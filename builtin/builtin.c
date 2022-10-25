@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 13:49:09 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:23:08 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	my_echo(t_mini *a)
 	i = 2;
 	if (a->full_cmd[1][0] == '-' && a->full_cmd[1][1] == 'n')
 	{
-		while (a->full_cmd[i][0] == '-' && a->full_cmd[i][1] == 'n')
+		while (a->full_cmd[i] && a->full_cmd[i][0] == '-'
+			&& a->full_cmd[i][1] == 'n')
 			i++;
 		if (a->full_cmd[i])
 		{
@@ -65,7 +66,7 @@ int	my_cd(t_prompt *p, t_mini *a)
 	{
 		if (chdir(a->full_cmd[1]) == -1)
 		{
-			perror(a->full_cmd[1]);
+			perror(ft_strjoin("cd: ", a->full_cmd[1]));
 			return (0);
 		}
 	}
@@ -89,20 +90,25 @@ int	main()
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(3, sizeof(char));
-	a->full_cmd[0] = ft_strdup("export");
-	a->full_cmd[1] = ft_strdup("a =1");
+	a->full_cmd[0] = ft_calloc(4, sizeof(char));
+	a->full_cmd[0] = ft_strdup("cd");
+	a->full_cmd[1] = ft_strdup("JKSHDGK");
 
+	/*
 	my_env(p);
 	my_export(p, a);
 	printf("şimdi:\n");
 	my_env(p);
+	*/
+	my_pwd();
+	my_cd(p, a);
+	my_pwd();
 
 	return (0);
 }
 //pwd tamam
-//my_env tamam
+//my_env tamam (belki export da ekle)
+//echo tamam
+//cd tamam
 //unset tamam
-//export segmen
-//echo segmen
-//cd bus
+//export ???

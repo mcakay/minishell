@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 13:46:40 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:14:46 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	check_valid(char *a)
 
 int	my_export(t_prompt *p, t_mini *a)
 {
-	int	i;
+	int		i;
+	char	*key;
 
 	i = 1;
 	if (!a->full_cmd[i])
@@ -60,8 +61,10 @@ int	my_export(t_prompt *p, t_mini *a)
 			return (0);
 		else if (is_present(p->envp, a->full_cmd[i]))
 		{
-			del_env(p, a->full_cmd[i]);
+			key = find_key_word(a->full_cmd[i]);
+			del_env(p, key);
 			add_env(p, a->full_cmd[i]);
+			free (key);
 		}
 		else
 			add_env(p, a->full_cmd[i]);
@@ -78,7 +81,7 @@ int	add_env(t_prompt *p, char *a)
 	i = 0;
 	while (p->envp[i])
 		i++;
-	temp = ft_calloc(i + 1, sizeof(char *));
+	temp = ft_calloc(i + 2, sizeof(char *));
 	if (!temp)
 		return (0);
 	i = 0;
@@ -91,7 +94,7 @@ int	add_env(t_prompt *p, char *a)
 	if (!temp[i])
 		return (0);
 	temp[i] = a;
-	p->envp[i] = temp[i];
-	free (temp);
+	free (p->envp);
+	p->envp = temp;
 	return (1);
 }
