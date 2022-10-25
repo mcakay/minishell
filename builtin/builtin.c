@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 16:54:07 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:02:48 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_echo(t_mini *a)
 	int	i;
 
 	i = 2;
-	if (a->full_cmd[1][0] == '-' && a->full_cmd[1][1] == 'n')
+	if (a->full_cmd[1] && a->full_cmd[1][0] == '-' && a->full_cmd[1][1] == 'n')
 	{
 		while (a->full_cmd[i] && a->full_cmd[i][0] == '-'
 			&& a->full_cmd[i][1] == 'n')
@@ -98,22 +98,24 @@ int	main(void)
 	p->envp[0] = ft_strjoin(ft_strdup("PWD="), getenv("PWD"));
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
-		p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
 	a->full_cmd[0] = ft_calloc(3, sizeof(char));
-	a->full_cmd[0] = ft_strdup("export");
+	a->full_cmd[0] = ft_strdup("cd");
+	a->full_cmd[0] = ft_strdup("..");
 	//a->full_cmd[1] = ft_strdup("a");
 
 	//my_export(p, a);
 	//a->full_cmd[1] = 0;
-	my_export(p, a);
+	my_env(p);
+	my_cd(p, a);
+	my_env(p);
 	return (0);
 }
 
 //pwd tamam
 //my_env tamam (belki export da ekle)
-//echo tamam bi env pwdlere bak
-//cd tamam
+//echo tamam
+//cd ENV PWDLER
 //unset tamam
 //export  " " case i ve yazdırma
