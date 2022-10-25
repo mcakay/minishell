@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 19:18:00 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 19:46:42 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ char	*find_first(t_prompt *p, const char *a)
 		j = i + 1;
 		while (p->envp[j])
 		{
-			if (ft_strncmp(p->envp[i], p->envp[j], ft_strlen(p->envp[i])) > 0
-				&& (!a || ft_strncmp(a, p->envp[j], ft_strlen(a))))
+			if (!a && ft_strncmp(first, p->envp[j], ft_strlen(p->envp[i])) > 0)
+				first = p->envp[j];
+			else if (ft_strncmp(first, p->envp[j], ft_strlen(p->envp[i])) > 0
+				&& a && ft_strncmp(a, p->envp[j], ft_strlen(a)) < 0)
 				first = p->envp[j];
 			j++;
 		}
