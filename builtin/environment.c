@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:59:58 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 14:56:33 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 20:24:14 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_present(char **p, char *a)
 	return (0);
 }
 
-int	my_unset(t_prompt *p, t_mini *a)
+int	my_unset(t_prompt *p, t_command *a)
 {
 	int		i;
 

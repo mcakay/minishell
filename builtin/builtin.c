@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 20:18:53 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 20:25:15 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_pwd(void)
 	free (path);
 }
 
-void	my_echo(t_mini *a)
+void	my_echo(t_command *a)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ void	my_env(t_prompt *p)
 		printf("%s\n", p->envp[i++]);
 }
 
-int	my_cd(t_prompt *p, t_mini *a)
+int	my_cd(t_prompt *p, t_command *a)
 {
 	char	*pwd;
 
@@ -83,27 +83,3 @@ int	my_cd(t_prompt *p, t_mini *a)
 	free (pwd);
 	return (0);
 }
-
-/*
-int	main(void)
-{
-	t_mini		*a;
-	t_prompt	*p;
-
-	p = ft_calloc(1, sizeof(t_prompt));
-	p->envp = ft_calloc(5, sizeof(char *));
-	p->envp[0] = ft_strjoin(ft_strdup("PWD="), getenv("PWD"));
-	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
-	p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
-	p->envp[3] = ft_strdup("anan");
-	a = ft_calloc(1, sizeof(t_mini));
-	a->full_cmd = ft_calloc(3, sizeof(char *));
-	a->full_cmd[0] = ft_calloc(2, sizeof(char));
-	a->full_cmd[0] = ft_strdup("export");
-	a->full_cmd[1] = ft_strdup(" ");
-	//a->full_cmd[1] = ft_strdup("a");
-
-	my_export(p, a);
-	return (0);
-}
-*/

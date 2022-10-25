@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 19:55:02 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 20:24:31 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	print_export(t_prompt *p)
 	}
 }
 
-int	my_export(t_prompt *p, t_mini *a)
+int	my_export(t_prompt *p, t_command *a)
 {
 	int		i;
 	char	*key;
