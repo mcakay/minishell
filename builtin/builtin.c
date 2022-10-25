@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 18:27:58 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 18:46:17 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,24 +90,19 @@ int	main(void)
 	t_prompt	*p;
 
 	p = ft_calloc(1, sizeof(t_prompt));
-	p->envp = ft_calloc(3, sizeof(char *));
+	p->envp = ft_calloc(5, sizeof(char *));
 	p->envp[0] = ft_strjoin(ft_strdup("PWD="), getenv("PWD"));
 	p->envp[1] = ft_strjoin(ft_strdup("HOME="), getenv("HOME"));
 	p->envp[2] = ft_strjoin(ft_strdup("PATH="), getenv("PATH"));
+	p->envp[3] = ft_strdup("a");
 	a = ft_calloc(1, sizeof(t_mini));
 	a->full_cmd = ft_calloc(3, sizeof(char *));
 	a->full_cmd[0] = ft_calloc(2, sizeof(char));
-	a->full_cmd[0] = ft_strdup("cd");
+	a->full_cmd[0] = ft_strdup("export");
 	//a->full_cmd[1] = ft_strdup("");
 	//a->full_cmd[1] = ft_strdup("a");
 
-	//my_export(p, a);
-	//a->full_cmd[1] = 0;
-	my_env(p);
-	my_pwd();
-	my_cd(p, a);
-	my_env(p);
-	my_pwd();
+	my_export(p, a);
 	return (0);
 }
 

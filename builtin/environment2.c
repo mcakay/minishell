@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 16:55:00 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 19:18:00 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ char	*find_first(t_prompt *p, const char *a)
 	int		j;
 
 	i = 0;
+	first = p->envp[i];
 	while (p->envp[i])
 	{
 		j = i + 1;
-		while (p->envp[j] && (!a
-				|| (ft_strncmp(a, p->envp[j], ft_strlen(a)) < 0)))
+		while (p->envp[j])
 		{
-			if (ft_strncmp(p->envp[i], p->envp[j], ft_strlen(p->envp[i])) > 0)
+			if (ft_strncmp(p->envp[i], p->envp[j], ft_strlen(p->envp[i])) > 0
+				&& (!a || ft_strncmp(a, p->envp[j], ft_strlen(a))))
 				first = p->envp[j];
 			j++;
 		}
@@ -88,9 +89,9 @@ void	print_export(t_prompt *p)
 		i++;
 	}
 	i = 0;
-	while (!check_equal(p->envp[i]) && p->envp[i])
+	while (p->envp[i] && !check_equal(p->envp[i]))
 	{
-		printf("declare -x %s", p->envp[i]);
+		printf("declare -x %s\n", p->envp[i]);
 		i++;
 	}
 }
