@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/25 19:56:22 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/25 20:18:53 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	my_cd(t_prompt *p, t_mini *a)
 	free (pwd);
 	return (0);
 }
+
 /*
 int	main(void)
 {
@@ -105,4 +106,4 @@ int	main(void)
 	my_export(p, a);
 	return (0);
 }
-/*
+*/
