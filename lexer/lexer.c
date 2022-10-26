@@ -25,6 +25,9 @@ int	init_input(t_input *input, char *line, char **envp)
 	calc_size(input, envp);
 	calc_args_size(input);
 	printf("args_size: %d\n", input->args_size);
+	printf("dollar_size: %d\n", input->dollar_size);
+	printf("env_size: %d\n", input->env_size);
+	lexer_add_env(input, envp);
 	quote_split(input);
 	free(input->line);
 	return (0);

@@ -6,21 +6,23 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 13:42:40 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 01:04:27 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "../minishell.h"
 
 void	calc_env_size(t_input *input, int i, int k, char **envp)
 {
 	char	*str;
+	char	*tmp;
 	int		j;
 	int		l;
 
 	j = 0;
 	str = ft_substr(input->line, i - k, k);
-	input->dollar_size += ft_strlen(str);
+	input->dollar_size += ft_strlen(str) + 1;
 	while (envp[j])
 	{
 		l = 0;
@@ -29,6 +31,13 @@ void	calc_env_size(t_input *input, int i, int k, char **envp)
 		if (ft_strncmp(envp[j], str, l) == 0)
 		{
 			input->env_size += ft_strlen(envp[j]) - l - 1;
+			break ;
+		}
+		else if (str[0] == '?' && str[1] == '\0')
+		{
+			tmp = ft_itoa(g_global.status);
+			input->env_size += ft_strlen(tmp);
+			free(tmp);
 			break ;
 		}
 		j++;
@@ -47,7 +56,7 @@ void	calc_size_double_quote(t_input *input, int *i, char **envp)
 		if (input->line[*i] == '$')
 		{
 			(*i)++;
-			while (ft_isalnum(input->line[*i]) == 1)
+			while (ft_isalnum(input->line[*i]) == 1 || input->line[*i] == '?')
 			{
 				(*i)++;
 				k++;
@@ -83,7 +92,7 @@ void	calc_size(t_input *input, char **envp)
 		else if (input->line[i] == '$')
 		{
 			i++;
-			while (ft_isalnum(input->line[i]) == 1)
+			while (ft_isalnum(input->line[i]) == 1 || input->line[i] == '?')
 			{
 				i++;
 				k++;

@@ -6,11 +6,17 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 16:22:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 00:46:39 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	printf("\n");
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -30,10 +36,13 @@ int main(int argc, char **argv, char **envp)
 			continue ;
 		add_history(line);
 		lexed = lexer(line, env);
+		(void)parsed;
+		/*
 		parsed = parser(lexed, envp);
 		if (parsed == NULL)
 			continue ;
 		executor(*parsed);
+		*/
 		free_strs(lexed);
 		free(line);
 		//system("leaks minishell");

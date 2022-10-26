@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 READLINE = -L/usr/include -lreadline
 
-LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c ./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c \
-./lexer/lexer_calc_size.c
+LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c\
+./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c ./lexer/lexer_calc_size.c ./lexer/lexer_add_env.c
 
 PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_path.c ./parser/parser_redirection.c \
 ./parser/parser_redirection_io.c
