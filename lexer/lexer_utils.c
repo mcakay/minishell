@@ -6,12 +6,11 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 20:29:55 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/21 00:21:31 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:42:51 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../minishell.h"
 
 int	is_special_char(char c)
 {

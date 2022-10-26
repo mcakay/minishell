@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:30:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/24 04:16:25 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 16:17:41 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_prompt(t_prompt *prompt, char **envp, char **strs)
 	t_command *cmds;
 
 	cmds = NULL;
-	copy_envp(envp, prompt);
+	prompt->envp = envp;
 	if (get_cmds(&cmds, strs))
 		return (1);
 	init_redirections(&cmds, strs);

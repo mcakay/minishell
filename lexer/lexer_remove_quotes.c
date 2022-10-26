@@ -6,12 +6,11 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 21:47:32 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:42:36 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../minishell.h"
 
 int	calc_size_remove_quotes(char *str)
 {

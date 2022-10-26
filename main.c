@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/24 03:34:19 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 16:22:10 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	char 	**lexed;
-	t_prompt *parsed;
+	char		**lexed;
+	t_prompt	*parsed;
+	char		**env;
 
 	(void)argc;
 	(void)argv;
+	env = copy_env(envp);
+	g_global.envp = env;
+	g_global.status = 0;
 	while (1)
 	{
 		char *line = readline("zortshell$ ");
 		if (*line == '\0')
 			continue ;
 		add_history(line);
-		lexed = lexer(line, envp);
+		lexed = lexer(line, env);
 		parsed = parser(lexed, envp);
 		if (parsed == NULL)
 			continue ;
 		executor(*parsed);
+		free_strs(lexed);
+		free(line);
+		//system("leaks minishell");
 	}
 	return (0);
 }

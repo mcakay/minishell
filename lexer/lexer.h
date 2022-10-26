@@ -6,12 +6,15 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:00:30 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/24 03:31:14 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:41:40 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 #define LEXER_H
+
+#include "../libft/libft.h"
+#include <stdio.h>
 
 typedef struct s_input {
 	int 	double_quotes;
@@ -41,12 +44,8 @@ void	skip_quotes(t_input *input, int *i, char quote);
 //remove_quotes
 char	*remove_quotes(char *str);
 
-//env
-void	init_dollar(t_input *input);
-void	init_envs(t_input *input, char **envp);
-
 //calc_size
-void	calc_size(t_input *input);
+void	calc_size(t_input *input, char **envp);
 void	calc_args_size(t_input *input);
 
 

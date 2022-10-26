@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_pipes.c                                   :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 13:26:51 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 16:21:04 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/26 13:29:35 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/26 13:42:14 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "./libft/libft.h"
 
-void	init_pipes(t_prompt *prompt)
+char	**copy_env(char **envp)
 {
-	t_command	*curr;
-	int			i;
+	char	**rtn;
+	int		i;
 
 	i = 0;
-	curr = prompt->cmds;
-	while (curr->next)
+	while (envp[i])
+		i++;
+	rtn = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (envp[i])
 	{
-		pipe(curr->fd);
-		curr = curr->next;
+		rtn[i] = ft_strdup(envp[i]);
+		i++;
 	}
+	rtn[i] = NULL;
+	return (rtn);
 }

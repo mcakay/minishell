@@ -6,12 +6,11 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/24 03:37:46 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:42:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../minishell.h"
 
 void	quote_open(t_input *input, int *j, int *i, char quote)
 {

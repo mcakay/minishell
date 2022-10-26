@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../minishell.h"
 
 int	init_input(t_input *input, char *line, char **envp)
 {
@@ -23,12 +22,11 @@ int	init_input(t_input *input, char *line, char **envp)
 	if (input->double_quotes % 2 != 0 || input->single_quotes % 2 != 0)
 		return (printf("Syntax Error: quotes not closed\n"));
 	input->line = ft_strdup(line);
-	init_envs(input, envp);
-	calc_size(input);
+	calc_size(input, envp);
 	calc_args_size(input);
 	printf("args_size: %d\n", input->args_size);
-	//init_dollar(input);
 	quote_split(input);
+	free(input->line);
 	return (0);
 }
 
@@ -38,7 +36,7 @@ char	**lexer(char *line, char **envp)
 	int		i;
 
 	if (init_input(&input, line, envp))
-		exit(1);
+		return (NULL);
 	i = 0;
 	while (input.args[i])
 	{
@@ -46,6 +44,6 @@ char	**lexer(char *line, char **envp)
 		i++;
 	}
 	for (int i = 0; input.args[i]; i++)
-		printf("args[%d] = %s\n", i, input.args[i]);
+		printf("args[%d] = |%s|\n", i, input.args[i]);
 	return (input.args);
 }

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/23 15:23:32 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:33:55 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ char 	*access_check(char **path, char *cmd)
 	i = 0;
 	while (path[i])
 	{
+		/*
+		if (is_builtin(cmd))
+			return (cmd);
+		*/
+		if (access(cmd, X_OK) == 0)
+			return (cmd);
 		full_command = add_path(path[i], cmd);
 		if (access(full_command, X_OK) == 0)
 			return (full_command);

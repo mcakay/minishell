@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_env.c                                       :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 22:31:34 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/20 22:31:35 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/26 12:45:47 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/26 13:41:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "./libft/libft.h"
 
-void	copy_envp(char **envp, t_prompt *prompt)
+void	free_strs(char **strs)
 {
 	int i;
 
 	i = 0;
-	while (envp[i])
-		i++;
-	prompt->envp = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (envp[i])
+	while (strs[i])
 	{
-		prompt->envp[i] = ft_strdup(envp[i]);
+		free(strs[i]);
 		i++;
 	}
-	prompt->envp[i] = NULL;
+	free(strs);
 }

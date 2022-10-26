@@ -7,16 +7,18 @@ CFLAGS = -Wall -Wextra -Werror
 READLINE = -L/usr/include -lreadline
 
 LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c ./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c \
-./lexer/lexer_envs.c ./lexer/lexer_calc_size.c
+./lexer/lexer_calc_size.c
 
-PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_env.c ./parser/parser_path.c ./parser/parser_redirection.c \
-./parser/parser_utils.c ./parser/parser_redirection_io.c
+PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_path.c ./parser/parser_redirection.c \
+./parser/parser_redirection_io.c
 
 EXECUTOR = ./executor/executor.c ./executor/executor_access.c ./executor/executor_pipes.c
 
+UTILS = free.c envp.c
+
 LIBFT = ./libft/libft.a
 
-SRCS = main.c $(LEXER) $(PARSER) $(EXECUTOR)
+SRCS = main.c $(LEXER) $(UTILS) $(PARSER) $(EXECUTOR) 
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,14 +6,13 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/24 03:34:40 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/26 13:42:40 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "../minishell.h"
 
-void	calc_env_size(t_input *input, int i, int k)
+void	calc_env_size(t_input *input, int i, int k, char **envp)
 {
 	char	*str;
 	int		j;
@@ -22,14 +21,14 @@ void	calc_env_size(t_input *input, int i, int k)
 	j = 0;
 	str = ft_substr(input->line, i - k, k);
 	input->dollar_size += ft_strlen(str);
-	while (input->envs[j])
+	while (envp[j])
 	{
 		l = 0;
-		while (input->envs[j][l] != '=' && input->envs[j][l] != '\0')
+		while (envp[j][l] != '=' && envp[j][l] != '\0')
 			l++;
-		if (ft_strncmp(input->envs[j], str, l) == 0)
+		if (ft_strncmp(envp[j], str, l) == 0)
 		{
-			input->env_size += ft_strlen(input->envs[j]) - l - 1;
+			input->env_size += ft_strlen(envp[j]) - l - 1;
 			break ;
 		}
 		j++;
@@ -37,7 +36,7 @@ void	calc_env_size(t_input *input, int i, int k)
 	free(str);
 }
 
-void	calc_size_double_quote(t_input *input, int *i)
+void	calc_size_double_quote(t_input *input, int *i, char **envp)
 {
 	int	k;
 
@@ -54,7 +53,7 @@ void	calc_size_double_quote(t_input *input, int *i)
 				k++;
 			}
 			if (k)
-				calc_env_size(input, *i, k);
+				calc_env_size(input, *i, k, envp);
 			k = 0;
 		}
 		else
@@ -62,7 +61,7 @@ void	calc_size_double_quote(t_input *input, int *i)
 	}
 }
 
-void	calc_size(t_input *input)
+void	calc_size(t_input *input, char **envp)
 {
 	int i;
 	int k;
@@ -72,7 +71,7 @@ void	calc_size(t_input *input)
 	while (input->line[i])
 	{
 		if (input->line[i] == '"')
-			calc_size_double_quote(input, &i);
+			calc_size_double_quote(input, &i, envp);
 		else if (input->line[i] == '\'')
 		{
 			i++;
@@ -90,7 +89,7 @@ void	calc_size(t_input *input)
 				k++;
 			}
 			if (k)
-				calc_env_size(input, i, k);
+				calc_env_size(input, i, k, envp);
 			k = 0;
 		}
 		else
