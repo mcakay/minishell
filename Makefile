@@ -25,7 +25,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)  
+	@$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline -L .brew/opt/readline/lib -I .brew/opt/readline/include
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
