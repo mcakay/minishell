@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 15:18:19 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:41:28 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	ctrl_d(void)
 	exit(0);
 }
 
+//değiştir
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	ioctl(STDIN_FILENO, TIOCSTI, "");
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	write(1, "\033[A", 3);
 }
 
 int main(int argc, char **argv, char **envp)
