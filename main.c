@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 17:35:25 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:49:35 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ctrl_d(void)
 	exit(0);
 }
 
-//değiştir
 void	sigint_handler(int sig)
 {
 	(void)sig;
@@ -46,7 +45,7 @@ int main(int argc, char **argv, char **envp)
 		char *line = readline("zortshell$ ");
 		if (!line)
 			ctrl_d();
-		else if(*line == '\0')
+		else if (*line == '\0')
 			continue ;
 		add_history(line);
 		lexed = lexer(line, env);
