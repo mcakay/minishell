@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 16:46:42 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:35:25 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ctrl_d(void)
 {
-	printf(" exit\n");
+	printf("exit\n");
 	exit(0);
 }
 
@@ -22,9 +22,10 @@ void	ctrl_d(void)
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_redisplay();
 }
 
 int main(int argc, char **argv, char **envp)

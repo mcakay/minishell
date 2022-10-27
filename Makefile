@@ -2,7 +2,9 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I./lib/lib/readline/include 
+
+LDFLAGS = -L./lib/lib/readline/lib  -lreadline
 
 READLINE = -L/usr/include -lreadline
 
@@ -25,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(READLINE) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline -L .brew/opt/readline/lib -I .brew/opt/readline/include
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBFT) -o $(NAME) 
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -35,6 +37,9 @@ $(LIBFT):
 
 $(READLINE):
 	@make -C ./lib/readline
+
+readline:
+	@make -C ./lib/make
 
 clean:
 	@rm -f $(OBJS)
