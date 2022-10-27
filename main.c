@@ -6,7 +6,7 @@
 /*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 17:49:35 by bkayan           ###   ########.fr       */
+/*   Updated: 2022/10/27 18:29:53 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ctrl_d(void)
 void	sigint_handler(int sig)
 {
 	(void)sig;
+	//g_global.status = 130;
 	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
