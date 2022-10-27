@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bkayan <bkayan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 16:22:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 15:18:19 by bkayan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ctrl_d(void)
+{
+	printf("\nexit\n");
+	exit(0);
+}
+
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	ioctl(STDIN_FILENO, TIOCSTI, "");
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -20,13 +32,17 @@ int main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	env = copy_env(envp);
 	g_global.envp = env;
 	g_global.status = 0;
 	while (1)
 	{
 		char *line = readline("zortshell$ ");
-		if (*line == '\0')
+		if (!line)
+			ctrl_d();
+		else if(*line == '\0')
 			continue ;
 		add_history(line);
 		lexed = lexer(line, env);
