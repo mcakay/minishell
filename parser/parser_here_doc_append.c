@@ -1,63 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_redirection_io.c                            :+:      :+:    :+:   */
+/*   parser_here_doc_append.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 05:04:59 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/28 23:44:38 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/28 01:13:17 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/28 16:43:15 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_infile	*create_node_infile(char *str)
+t_here_doc	*create_node_here_doc(char *str)
 {
-	t_infile	*new;
+	t_here_doc	*new;
 
-	new = malloc(sizeof(t_infile));
-	new->infile = ft_strdup(str);
+	new = malloc(sizeof(t_here_doc));
+	new->here_doc = ft_strdup(str);
 	new->next = NULL;
 	return (new);
 }
 
-t_outfile	*create_node_outfile(char *str)
+t_append	*create_node_append(char *str)
 {
-	t_outfile	*new;
+	t_append	*new;
 
-	new = malloc(sizeof(t_outfile));
-	new->outfile = ft_strdup(str);
+	new = malloc(sizeof(t_append));
+	new->append = ft_strdup(str);
 	new->next = NULL;
 	return (new);
 }
 
-void	add_node_infile(t_infile **root, char *str)
+void	add_node_here_doc(t_here_doc **root, char *str)
 {
-	t_infile *curr;
+	t_here_doc *curr;
 
 	if (*root == NULL)
 	{
-		*root = create_node_infile(str);
+		*root = create_node_here_doc(str);
 		return ;
 	}
 	curr = *root;
 	while (curr->next)
 		curr = curr->next;
-	curr->next = create_node_infile(str);
+	curr->next = create_node_here_doc(str);
 }
 
-void	add_node_outfile(t_outfile **root, char *str)
+void	add_node_append(t_append **root, char *str)
 {
-	t_outfile *curr;
+	t_append *curr;
 
 	if (*root == NULL)
 	{
-		*root = create_node_outfile(str);
+		*root = create_node_append(str);
 		return ;
 	}
 	curr = *root;
 	while (curr->next)
 		curr = curr->next;
-	curr->next = create_node_outfile(str);
+	curr->next = create_node_append(str);
 }

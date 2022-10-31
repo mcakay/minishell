@@ -6,38 +6,38 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 05:05:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 13:42:33 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/28 01:47:12 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	quote_open(t_input *input, int *j, int *i, char quote)
+void	quote_open(t_input *input, char quote)
 {
 	int		k;
 	int		flag;
 
 	flag = 1;
 	k = 0;
-	(*i)++;
-	while (input->line[*i + k] != quote && input->line[*i + k] != '\0')
+	input->i++;
+	while (input->line[input->i + k] != quote && input->line[input->i + k] != '\0')
 		k++;
-	if (input->line[*i + k] == '\0')
+	if (input->line[input->i + k] == '\0')
 		flag = 0;
-	while ((is_space_or_null(input->line[*i + k]) == 0 || flag) && is_special_char(input->line[*i + k]) == 0)
+	while ((is_space_or_null(input->line[input->i + k]) == 0 || flag) && is_special_char(input->line[input->i + k]) == 0)
 	{
-		if (input->line[*i + k] == quote)
+		if (input->line[input->i + k] == quote)
 			flag = !flag;
 		k++;
 	}
-	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
-	while (is_space(input->line[*i + k]) == 1)
+	input->args[input->j] = ft_substr(input->line, input->i - 1, k + 1);
+	while (is_space(input->line[input->i + k]) == 1)
 		k++;
-	*i += k;
-	(*j)++;
+	input->i += k;
+	input->j++;
 }
 
-void	quote_out(t_input *input, int *j, int *i)
+void	quote_out(t_input *input)
 {
 	int		k;
 	int		flag;
@@ -46,68 +46,62 @@ void	quote_out(t_input *input, int *j, int *i)
 	flag = 0;
 	k = 0;
 	mark = 0;
-	while(is_space(input->line[*i]) == 1)
-		(*i)++;
-	while ((is_space_or_null(input->line[*i + k]) == 0 || flag) && (is_special_char(input->line[*i + k]) == 0 || flag))
+	while(is_space(input->line[input->i]) == 1)
+		input->i++;
+	while ((is_space_or_null(input->line[input->i + k]) == 0 || flag) && (is_special_char(input->line[input->i + k]) == 0 || flag))
 	{
-		if ((input->line[*i + k] == '"' || input->line[*i + k] == '\'') && !mark)
+		if ((input->line[input->i + k] == '"' || input->line[input->i + k] == '\'') && !mark)
 		{
-				mark = input->line[*i + k];
+				mark = input->line[input->i + k];
 				flag = !flag;
 		}
-		else if (mark && input->line[*i + k] == mark)
+		else if (mark && input->line[input->i + k] == mark)
 		{
 			flag = !flag;
 			mark = 0;
 		}
 		k++;
 	}
-	input->args[*j] = ft_substr(input->line, *i, k);
-	while (is_space(input->line[*i + k]) == 1)
+	input->args[input->j] = ft_substr(input->line, input->i, k);
+	while (is_space(input->line[input->i + k]) == 1)
 		k++;
-	*i += k;
-	(*j)++;
+	input->i += k;
+	input->j++;
 }
 
-void	special_char(t_input *input, int *j, int *i)
+void	special_char(t_input *input)
 {
 	int		k;
 
 	k = 0;
-	(*i)++;
-	while (is_space_or_null(input->line[*i + k]) == 0)
+	input->i++;
+	while (is_space_or_null(input->line[input->i + k]) == 0)
 	{
-		if (input->line[*i + k] != input->line[*i - 1] 
-		|| (input->line[*i + k] != '<' && input->line[*i + k] != '>')
+		if (input->line[input->i + k] != input->line[input->i - 1] 
+		|| (input->line[input->i + k] != '<' && input->line[input->i + k] != '>')
 		|| k != 0)
 			break ;
 		else
 			k++;
 	}
-	input->args[*j] = ft_substr(input->line, *i - 1, k + 1);
-	while (is_space(input->line[*i + k]) == 1)
+	input->args[input->j] = ft_substr(input->line, input->i - 1, k + 1);
+	while (is_space(input->line[input->i + k]) == 1)
 		k++;
-	*i += k;
-	(*j)++;
+	input->i += k;
+	input->j++;
 }
 
 void	quote_split(t_input *input)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	input->args = malloc(sizeof(char *) * (input->args_size + 1));
-	printf("input->line: |%s|\n", input->line);
-	while (input->line[i])
+	while (input->line[input->i])
 	{
-		if (input->line[i] == '"' || input->line[i] == '\'')
-			quote_open(input, &j, &i, input->line[i]);
-		else if (is_special_char(input->line[i]) == 1)
-			special_char(input, &j, &i);
+		if (input->line[input->i] == '"' || input->line[input->i] == '\'')
+			quote_open(input, input->line[input->i]);
+		else if (is_special_char(input->line[input->i]) == 1)
+			special_char(input);
 		else
-			quote_out(input, &j, &i);
+			quote_out(input);
 	}
-	input->args[j] = NULL;
+	input->args[input->j] = NULL;
 }

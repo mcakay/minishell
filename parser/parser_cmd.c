@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:51:52 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 16:18:32 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/30 18:00:08 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ t_command	*create_node(char **strs, int i, int flag)
 		}
 	}
 	node->full_cmd[k] = NULL;
-	node->infile = 0;
-	node->outfile = 1;
 	node->next = NULL;
 	node->prev = NULL;
+	node->infile = 0;
+	node->outfile = 0;
 	return (node);
 }
 
@@ -73,7 +73,7 @@ int	get_cmds(t_command **cmds, char **strs)
 			flag = i + 1;
 			i++;
 		}
-		if (is_redirection(strs[i]) == 1)
+		else if (is_redirection(strs[i]))
 		{
 			if (strs[i + 1] == NULL)
 				return(printf("minishell: syntax error near unexpected token `newline'\n"));

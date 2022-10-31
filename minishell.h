@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 17:59:43 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/30 18:18:27 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <readline/history.h>
 #include "redirection.h"
 #include "./libft/libft.h"
+#include <signal.h>
 
 typedef struct s_global
 {
@@ -38,6 +39,8 @@ typedef struct s_command
 	struct s_command *prev;
 	t_infile *infile_list;
 	t_outfile *outfile_list;
+	t_here_doc *here_doc_list;
+	t_append *append_list;
 	int		pid;
 }				t_command;
 
@@ -55,7 +58,13 @@ void		executor(t_prompt parsed);
 
 //free
 void	free_strs(char **strs);
+void	free_parsed(t_prompt *prompt);
 
 //envp
 char	**copy_env(char **envp);
+
+//signal
+void	ctrl_d(void);
+void	sigint_handler(int sig);
+
 #endif

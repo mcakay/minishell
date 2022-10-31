@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.h                                         :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/30 17:12:03 by mcakay           ###   ########.fr       */
+/*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
+/*   Updated: 2022/10/31 05:17:46 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_H
-# define EXECUTOR_H
+#include "minishell.h"
 
-# include "../minishell.h"
-# include <fcntl.h>
+void	ctrl_d(void)
+{
+	printf("exit\n");
+	exit(0);
+}
 
-//access
-char 	*access_check(char **path, char *cmd);
-int		add_path_to_cmds(t_prompt *prompt);
-void	init_pipes(t_prompt *prompt);
-
-//builtin
-int		is_builtin(char *cmd);
-void	exec_builtin(t_command *cmd);
-
-//redirections
-int		get_redirections(t_command **cmd);
-
-#endif
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	g_global.status = 130;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}

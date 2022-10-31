@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:30:40 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 16:17:41 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/28 23:44:58 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	init_prompt(t_prompt *prompt, char **envp, char **strs)
 
 t_prompt	*parser(char **strs, char **envp)
 {
+	FILE *fp;
+
+	fp = fopen("./logs/parser_log.txt", "w+");
 	t_prompt	*prompt;
 
 	prompt = malloc(sizeof(t_prompt));
@@ -36,27 +39,42 @@ t_prompt	*parser(char **strs, char **envp)
 	t_command *cmds = prompt->cmds;
 	t_infile *infile = cmds->infile_list;
 	t_outfile *outfile = cmds->outfile_list;
+	t_here_doc *here_doc = cmds->here_doc_list;
+	t_append *append = cmds->append_list;
 	while (cmds)
 	{
-		printf("-------------------------\n");
-		printf("cmd: %s\n", cmds->full_cmd[0]);
+		fprintf(fp, "-------------------------\n");
+		fprintf(fp, "cmd: %s\n", cmds->full_cmd[0]);
 		while (infile)
 		{
-			printf("infile: %s\n", infile->infile);
+			fprintf(fp, "infile: %s\n", infile->infile);
 			infile = infile->next;
 		}
 		while (outfile)
 		{
-			printf("outfile: %s\n", outfile->outfile);
+			fprintf(fp, "outfile: %s\n", outfile->outfile);
 			outfile = outfile->next;
+		}
+		while (here_doc)
+		{
+			fprintf(fp, "here_doc: %s\n", here_doc->here_doc);
+			here_doc = here_doc->next;
+		}
+		while (append)
+		{
+			fprintf(fp, "append: %s\n", append->append);
+			append = append->next;
 		}
 		cmds = cmds->next;
 		if (cmds)
 		{
 			infile = cmds->infile_list;
 			outfile = cmds->outfile_list;
+			here_doc = cmds->here_doc_list;
+			append = cmds->append_list;
 		}
-		printf("-------------------------\n");
+		fprintf(fp, "-------------------------\n");
 	}
+	fclose(fp);
 	return (prompt);
 }

@@ -6,13 +6,13 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 23:25:56 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/25 21:03:53 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/28 21:28:52 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2)
 	{

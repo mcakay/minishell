@@ -6,14 +6,14 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 22:12:46 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 01:04:30 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 18:50:46 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../minishell.h"
 
-void	lexer_add_dollar(t_input *input, char *rtn, int *i, int *k, int *j, char **envp)
+void	lexer_add_dollar(t_input *input, char *rtn, char **envp)
 {
 	char	*str;
 	char	*tmp;
@@ -22,7 +22,7 @@ void	lexer_add_dollar(t_input *input, char *rtn, int *i, int *k, int *j, char **
 	int		b;
 
 	a = 0;
-	str = ft_substr(input->line, *i - *k, *k);
+	str = ft_substr(input->line, input->i - input->k, input->k);
 	while (envp[a])
 	{
 		l = 0;
@@ -33,8 +33,8 @@ void	lexer_add_dollar(t_input *input, char *rtn, int *i, int *k, int *j, char **
 		{
 			while (envp[a][l] != '\0')
 			{
-				rtn[*j] = envp[a][l];
-				(*j)++;
+				rtn[input->j] = envp[a][l];
+				input->j++;
 				l++;
 			}
 			break ;
@@ -45,8 +45,8 @@ void	lexer_add_dollar(t_input *input, char *rtn, int *i, int *k, int *j, char **
 			tmp = ft_itoa(g_global.status);
 			while (tmp[b] != '\0')
 			{
-				rtn[*j] = tmp[b];
-				(*j)++;
+				rtn[input->j] = tmp[b];
+				input->j++;
 				b++;
 			}
 			free(tmp);
@@ -57,66 +57,60 @@ void	lexer_add_dollar(t_input *input, char *rtn, int *i, int *k, int *j, char **
 	free(str);
 }
 
-void	lexer_add_dollar_double_quotes(t_input *input, char *rtn, int *i, int *k, int *j, char **envp)
+void	lexer_add_dollar_double_quotes(t_input *input, char *rtn, char **envp)
 {
-	append_str(rtn, input->line, i, j);
-	while (input->line[*i] != '"' && input->line[*i] != '\0')
+	append_str(rtn, input->line, input);
+	while (input->line[input->i] != '"' && input->line[input->i] != '\0')
 	{
-		if (input->line[*i] == '$')
+		if (input->line[input->i] == '$')
 		{
-			(*i)++;
-			while (ft_isalnum(input->line[*i]) == 1 || input->line[*i] == '?')
+			input->i++;
+			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
 			{
-				(*i)++;
-				(*k)++;
+				input->i++;
+				input->k++;
 			}
-			if (*k)
-				lexer_add_dollar(input, rtn, i, k, j, envp);
-			*k = 0;
+			if (input->k)
+				lexer_add_dollar(input, rtn, envp);
+			input->k = 0;
 		}
 		else
-			append_str(rtn, input->line, i, j);
+			append_str(rtn, input->line, input);
 	}
 }
 
 void	lexer_add_env(t_input *input, char **envp)
 {
 	char	*rtn;
-	int		i;
-	int		j;
-	int		k;
 
-	i = 0;
-	j = 0;
-	k = 0;
 	rtn = malloc(sizeof(char) * (ft_strlen(input->line) + input->env_size - input->dollar_size + 1));
-	while (input->line[i])
+	while (input->line[input->i])
 	{
-		if (input->line[i] == '"')
-			lexer_add_dollar_double_quotes(input, rtn, &i, &k, &j, envp);
-		else if (input->line[i] == '$')
+		if (input->line[input->i] == '"')
+			lexer_add_dollar_double_quotes(input, rtn, envp);
+		else if (input->line[input->i] == '$')
 		{
-			i++;
-			while (ft_isalnum(input->line[i]) == 1 || input->line[i] == '?')
+			input->i++;
+			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
 			{
-				i++;
-				k++;
+				input->i++;
+				input->k++;
 			}
-			if (k)
-				lexer_add_dollar(input, rtn, &i, &k, &j, envp);
-			k = 0;
+			if (input->k)
+				lexer_add_dollar(input, rtn, envp);
+			input->k = 0;
 		}
-		else if (input->line[i] == '\'')
+		else if (input->line[input->i] == '\'')
 		{
-			append_str(rtn, input->line, &i, &j);
-			while (input->line[i] != '\'')
-				append_str(rtn, input->line, &i, &j);
-			append_str(rtn, input->line, &i, &j);
+			append_str(rtn, input->line, input);
+			while (input->line[input->i] != '\'')
+				append_str(rtn, input->line, input);
+			append_str(rtn, input->line, input);
 		}
 		else
-			append_str(rtn, input->line, &i, &j);
+			append_str(rtn, input->line, input);
 	}
-	rtn[j] = '\0';
+	rtn[input->j] = '\0';
 	free(input->line);
 	input->line = rtn;
 }

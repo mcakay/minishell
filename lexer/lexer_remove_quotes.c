@@ -6,62 +6,57 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 13:42:36 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 18:48:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	calc_size_remove_quotes(char *str)
+int	calc_size_remove_quotes(char *str, t_input *input)
 {
-	int		i;
 	int		size;
 	char	mark;
 
-	i = 0;
 	size = 0;
-	while (str[i])
+	while (str[input->i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
+		if (str[input->i] == '"' || str[input->i] == '\'')
 		{
-			mark = str[i];
-			i++;
+			mark = str[input->i];
+			input->i++;
 			size++;
-			while (str[i] != mark && str[i])
-				i++;
-			i++;
+			while (str[input->i] != mark && str[input->i])
+				input->i++;
+			input->i++;
 			size++;
 		}
 		else
-			i++;
+			input->i++;
 	}
 	return (size);
 }
 
-char	*remove_quotes(char *str)
+char	*remove_quotes(char *str, t_input *input)
 {
-	int		i;
-	int		j;
 	char	*rtn;
 	char	mark;
 
-	i = 0;
-	j = 0;
-	rtn = malloc(sizeof(char) * (ft_strlen(str) - calc_size_remove_quotes(str) + 1));
-	while (str[i])
+	rtn = malloc(sizeof(char) * (ft_strlen(str) - calc_size_remove_quotes(str, input) + 1));
+	reset_iters(input);
+	while (str[input->i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
+		if (str[input->i] == '"' || str[input->i] == '\'')
 		{
-			mark = str[i];
-			i++;
-			while (str[i] != mark && str[i])
-				append_str(rtn, str, &i, &j);
-			i++;
+			mark = str[input->i];
+			input->i++;
+			while (str[input->i] != mark && str[input->i])
+				append_str(rtn, str, input);
+			input->i++;
 		}
 		else
-			append_str(rtn, str, &i, &j);
+			append_str(rtn, str, input);
 	}
-	rtn[j] = '\0';
+	rtn[input->j] = '\0';
 	free(str);
 	return (rtn);
 }

@@ -6,14 +6,14 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 01:04:27 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/27 18:07:39 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../minishell.h"
 
-void	calc_env_size(t_input *input, int i, int k, char **envp)
+void	calc_env_size(t_input *input, char **envp)
 {
 	char	*str;
 	char	*tmp;
@@ -21,7 +21,7 @@ void	calc_env_size(t_input *input, int i, int k, char **envp)
 	int		l;
 
 	j = 0;
-	str = ft_substr(input->line, i - k, k);
+	str = ft_substr(input->line, input->i - input->k, input->k);
 	input->dollar_size += ft_strlen(str) + 1;
 	while (envp[j])
 	{
@@ -45,87 +45,76 @@ void	calc_env_size(t_input *input, int i, int k, char **envp)
 	free(str);
 }
 
-void	calc_size_double_quote(t_input *input, int *i, char **envp)
+void	calc_size_double_quote(t_input *input, char **envp)
 {
-	int	k;
-
-	k = 0;
-	(*i)++;
-	while (input->line[*i] != '"' && input->line[*i] != '\0')
+	input->i++;
+	while (input->line[input->i] != '"' && input->line[input->i] != '\0')
 	{
-		if (input->line[*i] == '$')
+		if (input->line[input->i] == '$')
 		{
-			(*i)++;
-			while (ft_isalnum(input->line[*i]) == 1 || input->line[*i] == '?')
+			input->i++;
+			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
 			{
-				(*i)++;
-				k++;
+				input->i++;
+				input->k++;
 			}
-			if (k)
-				calc_env_size(input, *i, k, envp);
-			k = 0;
+			if (input->k)
+				calc_env_size(input, envp);
+			input->k = 0;
 		}
 		else
-			(*i)++;
+			input->i++;
 	}
 }
 
 void	calc_size(t_input *input, char **envp)
 {
-	int i;
-	int k;
-
-	i = 0;
-	k = 0;
-	while (input->line[i])
+	while (input->line[input->i])
 	{
-		if (input->line[i] == '"')
-			calc_size_double_quote(input, &i, envp);
-		else if (input->line[i] == '\'')
+		if (input->line[input->i] == '"')
+			calc_size_double_quote(input, envp);
+		else if (input->line[input->i] == '\'')
 		{
-			i++;
-			while (input->line[i] != '\'' && input->line[i] != '\0')
-				i++;
-			if (input->line[i] == '\'')
-				i++;
+			input->i++;
+			while (input->line[input->i] != '\'' && input->line[input->i] != '\0')
+				input->i++;
+			if (input->line[input->i] == '\'')
+				input->i++;
 		}
-		else if (input->line[i] == '$')
+		else if (input->line[input->i] == '$')
 		{
-			i++;
-			while (ft_isalnum(input->line[i]) == 1 || input->line[i] == '?')
+			input->i++;
+			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
 			{
-				i++;
-				k++;
+				input->i++;
+				input->k++;
 			}
-			if (k)
-				calc_env_size(input, i, k, envp);
-			k = 0;
+			if (input->k)
+				calc_env_size(input, envp);
+			input->k = 0;
 		}
 		else
-			i++;
+			input->i++;
 	}
 }
 
 void	calc_args_size(t_input *input)
 {
-	int	i;
-
-	i = 0;
-	while (input->line[i])
+	while (input->line[input->i])
 	{
-		if (input->line[i] == '"' || input->line[i] == '\'')
-			skip_quotes(input, &i, input->line[i]);
+		if (input->line[input->i] == '"' || input->line[input->i] == '\'')
+			skip_quotes(input, input->line[input->i]);
 		else
 		{
-			while (is_space(input->line[i]) == 1)
-				i++;
-			if (input->line[i] != '\0')
+			while (is_space(input->line[input->i]) == 1)
+				input->i++;
+			if (input->line[input->i] != '\0')
 				input->args_size++;
-			while (is_space_or_null(input->line[i]) == 0)
+			while (is_space_or_null(input->line[input->i]) == 0)
 			{
-				if (is_special_char(input->line[i]) == 1)
+				if (is_special_char(input->line[input->i]) == 1)
 					input->args_size += 2;
-				i++;
+				input->i++;
 			}
 		}
 	}

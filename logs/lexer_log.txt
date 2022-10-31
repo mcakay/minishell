@@ -1,0 +1,6 @@
+args_size: 1
+dollar_size: 0
+env_size: 0
+before env: clear
+after env: clear
+args[0] = |clear|

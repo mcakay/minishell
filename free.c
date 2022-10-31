@@ -6,11 +6,11 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:45:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 13:41:53 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/28 23:27:45 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "minishell.h"
 
 void	free_strs(char **strs)
 {
@@ -23,4 +23,29 @@ void	free_strs(char **strs)
 		i++;
 	}
 	free(strs);
+}
+
+void	free_parsed(t_prompt *prompt)
+{
+	t_command *curr;
+	t_command *temp;
+	t_outfile *out_curr;
+	t_outfile *out_temp;
+
+	curr = prompt->cmds;
+	while (curr)
+	{
+		temp = curr->next;
+		out_curr = curr->outfile_list;
+		while (out_curr)
+		{
+			out_temp = out_curr->next;
+			free(out_curr->outfile);
+			free(out_curr);
+			out_curr = out_temp;
+		}
+		free(curr);
+		curr = temp;
+	}
+
 }
