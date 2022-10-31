@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 05:26:23 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/31 19:50:42 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    close_all_pipes(t_prompt *prompt)
 }
 void route_pipes(t_command *cmd)
 {
-    if (cmd->prev == NULL)	
+    if (cmd->prev == NULL)
 		dup2(cmd->fd[1], 1);
     else if (cmd->next == NULL)
 		dup2(cmd->prev->fd[0], 0);
@@ -76,13 +76,18 @@ void    executor(t_prompt parsed)
 	g_global.status = 0;
     init_pipes(&parsed);
 	if (get_redirections(&parsed.cmds))
+	{
+		close_all_redirections(&parsed.cmds);
 		return ;
+	}
 	curr = parsed.cmds;
     while (curr)
     {
+		here_doc(curr);
         exec(curr, parsed);
         curr = curr->next;
     }
     wait_cmd(&parsed);
     close_all_pipes(&parsed);
+	close_all_redirections(&parsed.cmds);
 }

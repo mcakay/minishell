@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 05:22:22 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/31 06:04:23 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		char *line = readline("minishell$ ");
+		char *line = readline("\033[1;32mminishell\033[0m$ ");
 		if (!line)
 			ctrl_d();
 		else if (*line == '\0')
