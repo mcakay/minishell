@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 12:45:32 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/31 20:02:18 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	exec_builtin(t_command *cmd);
 int		get_redirections(t_command **cmd);
 void	close_all_redirections(t_command **cmd);
 void	here_doc(t_command *cmd);
+void	append_mode(t_command *cmd);
 
 #endif
