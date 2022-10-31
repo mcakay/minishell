@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 02:39:52 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/10/31 05:26:23 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ void    close_all_pipes(t_prompt *prompt)
 void route_pipes(t_command *cmd)
 {
     if (cmd->prev == NULL)	
-	{
-		if (cmd->outfile)
-			dup2(cmd->outfile, 1);
-		else 
-			dup2(cmd->fd[1], 1);
-	}
+		dup2(cmd->fd[1], 1);
     else if (cmd->next == NULL)
 		dup2(cmd->prev->fd[0], 0);
     else
@@ -39,6 +34,10 @@ void route_pipes(t_command *cmd)
         dup2(cmd->prev->fd[0], 0);
         dup2(cmd->fd[1], 1);
     }
+	if (cmd->outfile)
+		dup2(cmd->outfile, 1);
+	if (cmd->infile)
+		dup2(cmd->infile, 0);
 }
 void exec(t_command *cmd, t_prompt parsed)
 {
