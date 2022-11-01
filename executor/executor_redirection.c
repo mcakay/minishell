@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:03:13 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 20:03:28 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 14:49:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,29 @@ void	here_doc(t_command *cmd)
 
 	curr = cmd->here_doc_list;
 	buffer = ft_strdup("");
-	while (curr)
+	if (curr)
 	{
-		line = readline("heredoc> ");
-		if (ft_strcmp(line, curr->here_doc) == 0)
-			curr = curr->next;
-		else
+		while (curr)
 		{
-			tmp = ft_strjoin(buffer, line);
-			tmp2 = ft_strjoin(tmp, "\n");
-			free(tmp);
-			free(buffer);
-			buffer = ft_strdup(tmp2);
-			free(tmp2);
-		}
+			line = readline("heredoc> ");
+			if (ft_strcmp(line, curr->here_doc) == 0)
+				curr = curr->next;
+			else
+			{
+				tmp = ft_strjoin(buffer, line);
+				tmp2 = ft_strjoin(tmp, "\n");
+				free(tmp);
+				free(buffer);
+				buffer = ft_strdup(tmp2);
+				free(tmp2);
+			}
 		free(line);
+		}
+		cmd->infile = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		write(cmd->infile, buffer, ft_strlen(buffer));
+		close(cmd->infile);
+		cmd->infile = open("heredoc", O_RDONLY, 0777);
 	}
-	cmd->infile = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	write(cmd->infile, buffer, ft_strlen(buffer));
-	close(cmd->infile);
-	cmd->infile = open("heredoc", O_RDONLY, 0777);
 	free(buffer);
 }
 

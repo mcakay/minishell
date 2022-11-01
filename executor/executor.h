@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 20:02:18 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 18:36:10 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int		add_path_to_cmds(t_prompt *prompt);
 void	init_pipes(t_prompt *prompt);
 
 //builtin
-int		is_builtin(char *cmd);
-void	exec_builtin(t_command *cmd);
+int		is_builtin1(char *cmd);
+int		is_builtin2(char *cmd);
+void	exec_builtin1(t_command *cmd);
+void	exec_builtin2(t_command *cmd);
 
 //redirections
 int		get_redirections(t_command **cmd);

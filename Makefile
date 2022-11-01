@@ -2,9 +2,9 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I./lib/readline/include
+CFLAGS = -Wall -Wextra -Werror
 
-LDFLAGS = -L./lib/readline/lib -lreadline
+LDFLAGS = -lreadline
 
 LEXER = ./lexer/lexer.c ./lexer/lexer_quote_handler.c ./lexer/lexer_quote_counter.c\
 ./lexer/lexer_utils.c ./lexer/lexer_remove_quotes.c ./lexer/lexer_calc_size.c ./lexer/lexer_add_env.c
@@ -25,7 +25,7 @@ SRCS = main.c $(LEXER) $(UTILS) $(PARSER) $(EXECUTOR) $(BUILTIN)
 
 OBJS = $(SRCS:.c=.o)
 
-all: readline $(NAME) 
+all: $(NAME) 
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)  
@@ -36,15 +36,11 @@ $(NAME): $(OBJS) $(LIBFT)
 $(LIBFT):
 	@make -C ./libft
 
-readline:
-	@make -C ./lib
-
 clean:
 	@rm -f $(OBJS)
 	@make clean -C ./libft
 
 fclean: clean
-	@make fclean -C ./lib
 	@rm -f $(NAME)
 	@make fclean -C ./libft
 

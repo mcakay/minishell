@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/29 00:51:36 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 21:12:27 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int is_flag(t_command *a, int i)
     while (a->full_cmd[i] && a->full_cmd[i][0] == '-'
         && a->full_cmd[1][j] == 'n')
         j++;
-    if (a->full_cmd[1][j] == '\0')
+    if (a->full_cmd[1][j] == '\0' && j != 1)
         return (1);
     return (0);
 }
@@ -36,7 +36,7 @@ void    my_echo(t_command *a)
 {
     int i;
     i = 2;
-    if (is_flag(a, 1))
+    if (a->full_cmd[1] && is_flag(a, 1))
     {
         while (is_flag(a, i))
             i++;
@@ -50,7 +50,7 @@ void    my_echo(t_command *a)
     }
     else if (a->full_cmd[1])
     {
-        printf("%s", a->full_cmd[1]);
+		printf("%s", a->full_cmd[1]);
         while (a->full_cmd[i])
             printf(" %s", a->full_cmd[i++]);
         printf("\n");
@@ -96,6 +96,5 @@ int	my_cd(t_command *a)
 void	my_exit(int status)
 {
 	printf("exit\n");
-	//kill(getppid(), 9);
 	exit(status);
 }

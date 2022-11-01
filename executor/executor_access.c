@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 06:06:53 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 18:37:11 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char 	*access_check(char **path, char *cmd)
 	i = 0;
 	while (path[i] && cmd)
 	{
-		if (is_builtin(cmd))
+		if (is_builtin1(cmd) || is_builtin2(cmd))
 			return (cmd);
 		if (access(cmd, X_OK) == 0)
 			return (cmd);

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 20:03:02 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 21:18:09 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void exec(t_command *cmd, t_prompt parsed)
     {
         route_pipes(cmd);
 		close_all_pipes(&parsed);
-        if (is_builtin(cmd->full_cmd[0]))
-			exec_builtin(cmd);
+        if (is_builtin1(cmd->full_cmd[0]))
+			exec_builtin1(cmd);
         else
 			execve(cmd->full_path, cmd->full_cmd, g_global.envp);
     }
     else
-        cmd->pid = pid;
+		cmd->pid = pid;
 }
 
 void wait_cmd(t_prompt *prompt)
@@ -85,7 +85,10 @@ void    executor(t_prompt parsed)
     {
 		here_doc(curr);
 		append_mode(curr);
-        exec(curr, parsed);
+		if (is_builtin2(curr->full_cmd[0]))
+			exec_builtin2(curr);
+		else
+			exec(curr, parsed);
         curr = curr->next;
     }
     wait_cmd(&parsed);

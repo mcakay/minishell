@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/31 06:05:35 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 21:25:09 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,31 @@ void	ctrl_d(void)
 
 void	sigint_handler(int sig)
 {
+	int	status;
+
 	(void)sig;
-	g_global.status = 130;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	waitpid(-1, &status, 0);
+	
+	if (WTERMSIG(status) == SIGINT)
+	{
+		printf("\n");
+		return ;
+	}
+	g_global.check = 1;
+	ioctl(0, TIOCSTI, "\n");
+    write(1, "\033[A", 3);
+}
+
+void	sigquit_handler_in_process(int sig)
+{
+	int	status;
+
+	(void)sig;
+	waitpid(-1, &status, 0);
+	
+	if (WTERMSIG(status) == SIGQUIT)
+	{
+		printf("Quit: %d\n", sig);
+		return ;
+	}
 }

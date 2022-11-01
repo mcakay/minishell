@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/30 18:18:27 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 21:12:24 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 #include "redirection.h"
 #include "./libft/libft.h"
 #include <signal.h>
+#include <sys/ioctl.h>
 
 typedef struct s_global
 {
 	int		status;
 	char	**envp;
+	int		check;
+
 }				t_global;
 
 t_global	g_global;
@@ -66,5 +69,6 @@ char	**copy_env(char **envp);
 //signal
 void	ctrl_d(void);
 void	sigint_handler(int sig);
+void	sigquit_handler_in_process(int sig);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 23:59:15 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/26 13:42:31 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/01 14:51:39 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int count_single_quotes(char *line)
 				count++;
 			i++;
 		}
-		i++;
+		if (line[i])
+			i++;
 		while (line[i] != '"' && line[i] != '\0')
 			i++;
-		i++;
+		if (line[i])
+			i++;
 	}
 	return (count);
 }
