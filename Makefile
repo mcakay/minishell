@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 
 LDFLAGS = -lreadline
 
@@ -13,7 +13,7 @@ PARSER = ./parser/parser.c ./parser/parser_cmd.c ./parser/parser_path.c ./parser
 ./parser/parser_redirection_io.c ./parser/parser_here_doc_append.c
 
 EXECUTOR = ./executor/executor.c ./executor/executor_access.c ./executor/executor_pipes.c ./executor/executor_builtin.c\
-./executor/executor_redirection.c
+./executor/executor_redirection.c ./executor/executor_utils.c
 
 BUILTIN = ./builtin/builtin.c ./builtin/environment.c ./builtin/export.c 
 
@@ -39,6 +39,7 @@ $(LIBFT):
 clean:
 	@rm -f $(OBJS)
 	@make clean -C ./libft
+	@rm -f heredoc
 
 fclean: clean
 	@rm -f $(NAME)

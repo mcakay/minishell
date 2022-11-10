@@ -6,14 +6,14 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 22:12:46 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 18:50:46 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/02 02:16:21 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../minishell.h"
 
-void	lexer_add_dollar(t_input *input, char *rtn, char **envp)
+void	lexer_add_dollar(t_input *input, char *rtn)
 {
 	char	*str;
 	char	*tmp;
@@ -23,17 +23,17 @@ void	lexer_add_dollar(t_input *input, char *rtn, char **envp)
 
 	a = 0;
 	str = ft_substr(input->line, input->i - input->k, input->k);
-	while (envp[a])
+	while (g_global.envp[a])
 	{
 		l = 0;
-		while (envp[a][l] != '=' && envp[a][l] != '\0')
+		while (g_global.envp[a][l] != '=' && g_global.envp[a][l] != '\0')
 			l++;
 		l++;
-		if (ft_strncmp(envp[a], str, l - 1) == 0)
+		if (ft_strncmp(g_global.envp[a], str, l - 1) == 0)
 		{
-			while (envp[a][l] != '\0')
+			while (g_global.envp[a][l] != '\0')
 			{
-				rtn[input->j] = envp[a][l];
+				rtn[input->j] = g_global.envp[a][l];
 				input->j++;
 				l++;
 			}
@@ -57,7 +57,7 @@ void	lexer_add_dollar(t_input *input, char *rtn, char **envp)
 	free(str);
 }
 
-void	lexer_add_dollar_double_quotes(t_input *input, char *rtn, char **envp)
+void	lexer_add_dollar_double_quotes(t_input *input, char *rtn)
 {
 	append_str(rtn, input->line, input);
 	while (input->line[input->i] != '"' && input->line[input->i] != '\0')
@@ -71,7 +71,7 @@ void	lexer_add_dollar_double_quotes(t_input *input, char *rtn, char **envp)
 				input->k++;
 			}
 			if (input->k)
-				lexer_add_dollar(input, rtn, envp);
+				lexer_add_dollar(input, rtn);
 			input->k = 0;
 		}
 		else
@@ -79,7 +79,7 @@ void	lexer_add_dollar_double_quotes(t_input *input, char *rtn, char **envp)
 	}
 }
 
-void	lexer_add_env(t_input *input, char **envp)
+void	lexer_add_env(t_input *input)
 {
 	char	*rtn;
 
@@ -87,7 +87,7 @@ void	lexer_add_env(t_input *input, char **envp)
 	while (input->line[input->i])
 	{
 		if (input->line[input->i] == '"')
-			lexer_add_dollar_double_quotes(input, rtn, envp);
+			lexer_add_dollar_double_quotes(input, rtn);
 		else if (input->line[input->i] == '$')
 		{
 			input->i++;
@@ -97,7 +97,7 @@ void	lexer_add_env(t_input *input, char **envp)
 				input->k++;
 			}
 			if (input->k)
-				lexer_add_dollar(input, rtn, envp);
+				lexer_add_dollar(input, rtn);
 			input->k = 0;
 		}
 		else if (input->line[input->i] == '\'')

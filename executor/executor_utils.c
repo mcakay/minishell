@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.c                                             :+:      :+:    :+:   */
+/*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 13:29:35 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/02 02:23:19 by mcakay           ###   ########.fr       */
+/*   Created: 2022/11/01 22:31:04 by mcakay            #+#    #+#             */
+/*   Updated: 2022/11/01 23:03:56 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "executor.h"
 
-char	**copy_env(char **envp)
+void	get_buffer(char **buffer, char *line)
 {
-	char	**rtn;
-	int		i;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	rtn = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (envp[i])
-	{
-		rtn[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	rtn[i] = NULL;
-	return (rtn);
+	char *tmp;
+	char *tmp2;
+	tmp = ft_strjoin(*buffer, line);
+	tmp2 = ft_strjoin(tmp, "\n");
+	free(tmp);
+	free(*buffer);
+	*buffer = ft_strdup(tmp2);
+	free(tmp2);
 }

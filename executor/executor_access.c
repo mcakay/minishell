@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/01 18:37:11 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/11 00:01:19 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	add_path_to_cmds(t_prompt *prompt)
 		curr->full_path = access_check(prompt->path, curr->full_cmd[0]);
 		if (curr->full_path == NULL)
 		{
+			if (prompt->path == NULL)
+				return (printf("minishell: %s: No such file or directory\n", curr->full_cmd[0]));
 			if (curr->full_cmd[0] == NULL)
 				return (1);
 			else
@@ -50,6 +52,8 @@ char 	*access_check(char **path, char *cmd)
 	char	*full_command;
 
 	i = 0;
+	if (path == NULL)
+		return (NULL);
 	while (path[i] && cmd)
 	{
 		if (is_builtin1(cmd) || is_builtin2(cmd))

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:00:30 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 18:49:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/02 02:15:07 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	reset_iters(t_input *input);
 char	*remove_quotes(char *str, t_input *input);
 
 //calc_size
-void	calc_size(t_input *input, char **envp);
+void	calc_size(t_input *input);
 void	calc_args_size(t_input *input);
 
 //env
-void	lexer_add_env(t_input *input, char **envp);
+void	lexer_add_env(t_input *input);
 
 
 #endif

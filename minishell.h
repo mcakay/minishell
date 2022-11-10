@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/01 21:12:24 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/02 02:17:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@ typedef struct s_prompt
 {
 	t_command	*cmds;
 	char		**path;
-	char		**envp;
 }				t_prompt;
 
 //lexer
-char		**lexer(char *line, char **envp);
-t_prompt	*parser(char **strs, char **envp);
+char		**lexer(char *line);
+t_prompt	*parser(char **strs);
 void		executor(t_prompt parsed);
 
 //free

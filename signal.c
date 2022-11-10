@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/01 21:25:09 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/10 23:40:37 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	sigint_handler(int sig)
 
 	(void)sig;
 	waitpid(-1, &status, 0);
-	
 	if (WTERMSIG(status) == SIGINT)
 	{
 		printf("\n");

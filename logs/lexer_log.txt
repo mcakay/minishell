@@ -1,6 +1,0 @@
-args_size: 1
-dollar_size: 0
-env_size: 0
-before env: cat
-after env: cat
-args[0] = |cat|
