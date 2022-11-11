@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 01:16:57 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 02:50:12 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void    executor(t_prompt parsed)
     while (curr)
     {
 		if (curr->here_doc_list)
-			here_doc(curr);
+			if (here_doc(curr))
+				return ;
 		append_mode(curr);
 		if (is_builtin2(curr->full_cmd[0]))
 			exec_builtin2(curr);

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 01:03:09 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 02:47:15 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_global
 {
 	int		status;
 	int		pid;
+	int		here_doc;
 	char	**envp;
 }				t_global;
 

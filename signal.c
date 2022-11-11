@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 01:17:09 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 02:53:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	sigint_handler(int sig)
 {
 	(void)sig;
+	if (g_global.pid == 2)
+		g_global.here_doc = 1;
 	if (g_global.pid != 0)
 	{
 		write(1, "\033[A", 3);

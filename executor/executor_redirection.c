@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:03:13 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 02:44:46 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 02:54:11 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ void	get_redirections(t_command *curr)
 	}
 }
 
-void	here_doc(t_command *cmd)
+int	here_doc(t_command *cmd)
 {
 	t_here_doc	*curr;
 	char		*line;
 	char		*buffer;
 	curr = cmd->here_doc_list;
 	buffer = ft_strdup("");
+	g_global.pid = 2;
 	while (curr)
 	{
+		if (g_global.here_doc == 1)
+		{
+			g_global.pid = 1;
+			return (1);
+		}
 		line = readline("> ");
 		if (ft_strcmp(line, curr->here_doc) == 0)
 			curr = curr->next;
@@ -65,6 +71,9 @@ void	here_doc(t_command *cmd)
 	write(cmd->infile, buffer, ft_strlen(buffer));
 	close(cmd->infile);
 	cmd->infile = open("heredoc", O_RDONLY, 0777);
+	free(buffer);
+	g_global.pid = 1;
+	return (0);
 }
 
 void	append_mode(t_command *cmd)

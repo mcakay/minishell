@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 01:15:10 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 02:47:24 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_global(char **envp)
 	g_global.envp = copy_env(envp);
 	g_global.status = 0;
 	g_global.pid = 1;
+	g_global.here_doc = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 }
