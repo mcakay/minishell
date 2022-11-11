@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:51:52 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/30 18:00:08 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/11 09:38:04 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ int	get_cmds(t_command **cmds, char **strs)
 	{
 		if (strs[i][0] == '|')
 		{
+			if (strs[i + 1] == NULL)
+			{
+				g_global.status = 258;
+				return (printf("syntax error near unexpected token `|'\n"));
+			}
+				
 			add_node(cmds, strs, i, flag);
 			flag = i + 1;
 			i++;
@@ -76,7 +82,15 @@ int	get_cmds(t_command **cmds, char **strs)
 		else if (is_redirection(strs[i]))
 		{
 			if (strs[i + 1] == NULL)
-				return(printf("minishell: syntax error near unexpected token `newline'\n"));
+			{
+				g_global.status = 258;
+				return (printf("syntax error near unexpected token `newline'\n"));
+			}
+			if (strs[i + 1][0] == '|')
+			{
+				g_global.status = 258;
+				return (printf("syntax error near unexpected token `|'\n"));
+			}
 			i += 2;
 		}
 		else

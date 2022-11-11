@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/01 22:59:30 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/11 02:45:01 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,11 @@ void wait_cmd(t_prompt *prompt)
 void    executor(t_prompt parsed)
 {
     t_command   *curr;
-    if (add_path_to_cmds(&parsed))
-        return ;
 	g_global.status = 0;
-    init_pipes(&parsed);
-	if (get_redirections(&parsed.cmds))
-	{
-		close_all_redirections(&parsed.cmds);
+    add_path_to_cmds(&parsed);
+	if (g_global.status != 0)
 		return ;
-	}
+	init_pipes(&parsed);
 	curr = parsed.cmds;
     while (curr)
     {

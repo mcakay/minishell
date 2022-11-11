@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/10 23:40:37 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/11 09:39:42 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sigint_handler(int sig)
 		return ;
 	}
 	g_global.check = 1;
+	g_global.status = 1;
 	ioctl(0, TIOCSTI, "\n");
     write(1, "\033[A", 3);
 }
