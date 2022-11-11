@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 08:33:54 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 01:03:09 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_global
 {
 	int		status;
-	int		check;
+	int		pid;
 	char	**envp;
 }				t_global;
 
@@ -65,8 +65,9 @@ void	free_parsed(t_prompt *prompt);
 char	**copy_env(char **envp);
 
 //signal
-void	ctrl_d(void);
 void	sigint_handler(int sig);
-void	sigquit_handler_in_process(int sig);
+void	eof_handler(int sig);
+void	sigquit_handler(int sig);
+void	sigint_handler_child(int sig);
 
 #endif

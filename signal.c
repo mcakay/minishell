@@ -6,45 +6,34 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 09:39:42 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 01:17:09 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ctrl_d(void)
+void	sigint_handler(int sig)
 {
-	printf("exit\n");
+	(void)sig;
+	if (g_global.pid != 0)
+	{
+		write(1, "\033[A", 3);
+		ioctl(0, TIOCSTI, "\n");
+	}
+	else
+		printf("\n");
+}
+
+void	eof_handler(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("exit\n", 1);
 	exit(0);
 }
 
-void	sigint_handler(int sig)
+void	sigquit_handler(int sig)
 {
-	int	status;
-
 	(void)sig;
-	waitpid(-1, &status, 0);
-	if (WTERMSIG(status) == SIGINT)
-	{
-		printf("\n");
-		return ;
-	}
-	g_global.check = 1;
-	g_global.status = 1;
-	ioctl(0, TIOCSTI, "\n");
-    write(1, "\033[A", 3);
-}
-
-void	sigquit_handler_in_process(int sig)
-{
-	int	status;
-
-	(void)sig;
-	waitpid(-1, &status, 0);
-	
-	if (WTERMSIG(status) == SIGQUIT)
-	{
-		printf("Quit: %d\n", sig);
-		return ;
-	}
+	if (g_global.pid == 0)
+		printf("Quit: 3\n");
 }

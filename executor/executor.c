@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 02:45:01 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 01:16:57 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void route_pipes(t_command *cmd)
 void exec(t_command *cmd, t_prompt parsed)
 {
     pid_t   pid;
+
+	g_global.pid = 0;
     pid = fork();
     if (pid == 0)
     {
@@ -67,6 +69,7 @@ void wait_cmd(t_prompt *prompt)
         waitpid(cmd->pid, &status, 0);
         cmd = cmd->next;
     }
+	g_global.pid = 1;
 }
 void    executor(t_prompt parsed)
 {

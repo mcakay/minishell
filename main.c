@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 09:28:01 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 01:15:10 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	init_global(char **envp)
 {
 	g_global.envp = copy_env(envp);
 	g_global.status = 0;
-	g_global.check = 0;
+	g_global.pid = 1;
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler_in_process);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -31,16 +31,10 @@ int main(int argc, char **argv, char **envp)
 	init_global(envp);
 	while (1)
 	{
-		char *line = readline("\033[1;35mminishell\033[0m$ ");
-		if (g_global.check == 1)
-		{
-			g_global.check = 0;
-			free(line);
-			continue ;
-		}
+		char *line = readline("minishell$ ");
 		if (!line)
-			ctrl_d();
-		else if (*line == '\0')
+			eof_handler(0);
+		if (*line == '\0')
 			continue ;
 		add_history(line);
 		lexed = lexer(line);
