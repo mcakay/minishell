@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment2.c                                     :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 03:16:42 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/29 00:48:07 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 05:21:21 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,33 +119,4 @@ void	print_export(void)
 			printf("declare -x %s\n", g_global.envp[i]);
 		i++;
 	}
-}
-
-int	my_export(t_command *a)
-{
-	int		i;
-	char	*key;
-
-	i = 1;
-	if (!a->full_cmd[i])
-	{
-		print_export();
-		return (0);
-	}
-	while (a->full_cmd[i])
-	{
-		if (!check_valid(a->full_cmd[i]))
-			return (0);
-		else if (check_equal(a->full_cmd[i])
-			&& is_present(g_global.envp, a->full_cmd[i]))
-		{
-			key = find_key_word(a->full_cmd[i]);
-			del_env(key);
-			add_env(a->full_cmd[i++]);
-			free (key);
-		}
-		else if (!is_present(g_global.envp, a->full_cmd[i]))
-			add_env(a->full_cmd[i++]);
-	}
-	return (1);
 }

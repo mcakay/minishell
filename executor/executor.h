@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 02:53:34 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:47:29 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 
 //access
-char 	*access_check(char **path, char *cmd);
+char	*access_check(char **path, char *cmd);
 void	add_path_to_cmds(t_prompt *prompt);
 void	init_pipes(t_prompt *prompt);
 

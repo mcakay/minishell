@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:39:11 by bkayan            #+#    #+#             */
-/*   Updated: 2022/11/11 09:11:26 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 05:20:49 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,42 +21,45 @@ void	my_pwd(void)
 	free (path);
 }
 
-int is_flag(t_command *a, int i)
+int	is_flag(t_command *a, int i)
 {
-    int j;
-    j = 1;
-    while (a->full_cmd[i] && a->full_cmd[i][0] == '-'
-        && a->full_cmd[1][j] == 'n')
-        j++;
-    if (a->full_cmd[1][j] == '\0' && j != 1)
-        return (1);
-    return (0);
+	int	j;
+
+	j = 1;
+	while (a->full_cmd[i] && a->full_cmd[i][0] == '-'
+			&& a->full_cmd[1][j] == 'n')
+		j++;
+	if (a->full_cmd[1][j] == '\0' && j != 1)
+		return (1);
+	return (0);
 }
-void    my_echo(t_command *a)
+
+void	my_echo(t_command *a)
 {
-    int i;
-    i = 2;
-    if (a->full_cmd[1] && is_flag(a, 1))
-    {
-        while (is_flag(a, i))
-            i++;
-        if (a->full_cmd[i])
-        {
-            printf("%s", a->full_cmd[i]);
-            i++;
-            while (a->full_cmd[i])
-                printf(" %s", a->full_cmd[i++]);
-        }
-    }
-    else if (a->full_cmd[1])
-    {
+	int	i;
+
+	i = 2;
+	if (a->full_cmd[1] && is_flag(a, 1))
+	{
+		while (is_flag(a, i))
+			i++;
+		if (a->full_cmd[i])
+		{
+			printf("%s", a->full_cmd[i]);
+			i++;
+			while (a->full_cmd[i])
+				printf(" %s", a->full_cmd[i++]);
+		}
+	}
+	else if (a->full_cmd[1])
+	{
 		printf("%s", a->full_cmd[1]);
-        while (a->full_cmd[i])
-            printf(" %s", a->full_cmd[i++]);
-        printf("\n");
-    }
-    else
-        printf("\n");
+		while (a->full_cmd[i])
+			printf(" %s", a->full_cmd[i++]);
+		printf("\n");
+	}
+	else
+		printf("\n");
 }
 
 void	my_env(void)
@@ -91,10 +94,4 @@ int	my_cd(t_command *a)
 	add_env(ft_strjoin(ft_strdup("PWD="), pwd));
 	free (pwd);
 	return (0);
-}
-
-void	my_exit(int status)
-{
-	printf("exit\n");
-	exit(status);
 }

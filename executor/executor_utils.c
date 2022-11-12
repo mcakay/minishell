@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 22:31:04 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/01 23:03:56 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 05:31:35 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,28 @@
 
 void	get_buffer(char **buffer, char *line)
 {
-	char *tmp;
-	char *tmp2;
+	char	*tmp;
+	char	*tmp2;
+
 	tmp = ft_strjoin(*buffer, line);
 	tmp2 = ft_strjoin(tmp, "\n");
 	free(tmp);
 	free(*buffer);
 	*buffer = ft_strdup(tmp2);
 	free(tmp2);
+}
+
+void	close_all_redirections(t_command **cmd)
+{
+	t_command	*curr;
+
+	curr = *cmd;
+	while (curr)
+	{
+		if (curr->infile)
+			close(curr->infile);
+		if (curr->outfile)
+			close(curr->outfile);
+		curr = curr->next;
+	}
 }

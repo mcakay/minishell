@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 22:12:46 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/02 02:16:21 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 06:22:20 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,27 @@
 void	lexer_add_dollar(t_input *input, char *rtn)
 {
 	char	*str;
-	char	*tmp;
-	int		a;
-	int		l;
-	int		b;
 
-	a = 0;
 	str = ft_substr(input->line, input->i - input->k, input->k);
-	while (g_global.envp[a])
+	while (g_global.envp[input->a])
 	{
-		l = 0;
-		while (g_global.envp[a][l] != '=' && g_global.envp[a][l] != '\0')
-			l++;
-		l++;
-		if (ft_strncmp(g_global.envp[a], str, l - 1) == 0)
+		skip_path(input);
+		if (ft_strncmp(g_global.envp[input->a], str, input->l - 1) == 0)
 		{
-			while (g_global.envp[a][l] != '\0')
+			while (g_global.envp[input->a][input->l] != '\0')
 			{
-				rtn[input->j] = g_global.envp[a][l];
+				rtn[input->j] = g_global.envp[input->a][input->l];
 				input->j++;
-				l++;
+				input->l++;
 			}
 			break ;
 		}
 		else if (str[0] == '?' && str[1] == '\0')
 		{
-			b = 0;
-			tmp = ft_itoa(g_global.status);
-			while (tmp[b] != '\0')
-			{
-				rtn[input->j] = tmp[b];
-				input->j++;
-				b++;
-			}
-			free(tmp);
+			if_question_mark(input, rtn);
 			break ;
 		}
-		a++;
+		input->a++;
 	}
 	free(str);
 }
@@ -65,7 +49,8 @@ void	lexer_add_dollar_double_quotes(t_input *input, char *rtn)
 		if (input->line[input->i] == '$')
 		{
 			input->i++;
-			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
+			while (ft_isalnum(input->line[input->i]) == 1
+				|| input->line[input->i] == '?')
 			{
 				input->i++;
 				input->k++;
@@ -83,23 +68,14 @@ void	lexer_add_env(t_input *input)
 {
 	char	*rtn;
 
-	rtn = malloc(sizeof(char) * (ft_strlen(input->line) + input->env_size - input->dollar_size + 1));
+	rtn = malloc(sizeof(char) * (ft_strlen(
+					input->line) + input->env_size - input->dollar_size + 1));
 	while (input->line[input->i])
 	{
 		if (input->line[input->i] == '"')
 			lexer_add_dollar_double_quotes(input, rtn);
 		else if (input->line[input->i] == '$')
-		{
-			input->i++;
-			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
-			{
-				input->i++;
-				input->k++;
-			}
-			if (input->k)
-				lexer_add_dollar(input, rtn);
-			input->k = 0;
-		}
+			get_env_name(input, rtn);
 		else if (input->line[input->i] == '\'')
 		{
 			append_str(rtn, input->line, input);

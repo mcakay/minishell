@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 01:13:17 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/28 16:43:15 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:32:12 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_append	*create_node_append(char *str)
 
 void	add_node_here_doc(t_here_doc **root, char *str)
 {
-	t_here_doc *curr;
+	t_here_doc	*curr;
 
 	if (*root == NULL)
 	{
@@ -49,7 +49,7 @@ void	add_node_here_doc(t_here_doc **root, char *str)
 
 void	add_node_append(t_append **root, char *str)
 {
-	t_append *curr;
+	t_append	*curr;
 
 	if (*root == NULL)
 	{

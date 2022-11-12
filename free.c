@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:45:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/28 23:27:45 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 05:25:37 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_strs(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i])
@@ -25,27 +25,47 @@ void	free_strs(char **strs)
 	free(strs);
 }
 
+void	free_command(t_command *tmp)
+{
+	int			i;
+	t_command	*tmp2;
+
+	while (tmp)
+	{
+		i = 0;
+		tmp2 = tmp->next;
+		if (tmp->full_path)
+			free(tmp->full_path);
+		if (tmp->full_cmd)
+		{
+			while (tmp->full_cmd[i])
+			{
+				free(tmp->full_cmd[i]);
+				i++;
+			}
+			free(tmp->full_cmd);
+		}
+		free_redirections(tmp);
+		free(tmp);
+		tmp = tmp2;
+	}
+}
+
 void	free_parsed(t_prompt *prompt)
 {
-	t_command *curr;
-	t_command *temp;
-	t_outfile *out_curr;
-	t_outfile *out_temp;
+	t_command	*tmp;
+	int			i;
 
-	curr = prompt->cmds;
-	while (curr)
+	tmp = prompt->cmds;
+	i = 0;
+	if (prompt->path)
 	{
-		temp = curr->next;
-		out_curr = curr->outfile_list;
-		while (out_curr)
-		{
-			out_temp = out_curr->next;
-			free(out_curr->outfile);
-			free(out_curr);
-			out_curr = out_temp;
+		while (prompt->path[i])
+		{	
+			free(prompt->path[i]);
+			i++;
 		}
-		free(curr);
-		curr = temp;
+		free(prompt->path);
 	}
-
+	free(prompt);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */ 
+/*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 16:00:08 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/15 12:59:12 by mcakay           ###   ########.fr       */
+/*   Created: 2022/11/12 04:38:33 by mcakay            #+#    #+#             */
+/*   Updated: 2022/11/12 04:38:44 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	init_input(t_input *input, char *line)
 
 char	**lexer(char *line)
 {
-	t_input input;
+	t_input	input;
 	int		i;
 
 	if (init_input(&input, line))

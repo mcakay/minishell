@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:51:52 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 09:38:04 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 05:42:12 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_command	*create_node(char **strs, int i, int flag)
 {
-	t_command *node;
-	int		j;
-	int		k;
+	t_command	*node;
+	int			j;
+	int			k;
 
 	j = 0;
 	k = 0;
@@ -43,7 +43,7 @@ t_command	*create_node(char **strs, int i, int flag)
 
 void	add_node(t_command **root, char **strs, int i, int flag)
 {
-	t_command *curr;
+	t_command	*curr;
 
 	if (*root == NULL)
 	{
@@ -57,10 +57,39 @@ void	add_node(t_command **root, char **strs, int i, int flag)
 	curr->next->prev = curr;
 }
 
+int	if_redirection(char **strs, int *i)
+{
+	if (strs[*i + 1] == NULL)
+	{
+		g_global.status = 258;
+		return (
+			printf("syntax error near unexpected token `newline'\n"));
+	}
+	if (strs[*i + 1][0] == '|')
+	{
+		g_global.status = 258;
+		return (printf("syntax error near unexpected token `|'\n"));
+	}
+	*i += 2;
+	return (0);
+}
+
+int	if_pipe(char **strs, int *i, int *flag, t_command **cmds)
+{
+	if (strs[*i + 1] == NULL)
+	{
+		g_global.status = 258;
+		return (printf("syntax error near unexpected token `|'\n"));
+	}
+	add_node(cmds, strs, *i, *flag);
+	*flag = *i + 1;
+	(*i)++;
+	return (0);
+}
 
 int	get_cmds(t_command **cmds, char **strs)
 {
-	int i;
+	int	i;
 	int	flag;
 
 	i = 0;
@@ -69,29 +98,13 @@ int	get_cmds(t_command **cmds, char **strs)
 	{
 		if (strs[i][0] == '|')
 		{
-			if (strs[i + 1] == NULL)
-			{
-				g_global.status = 258;
-				return (printf("syntax error near unexpected token `|'\n"));
-			}
-				
-			add_node(cmds, strs, i, flag);
-			flag = i + 1;
-			i++;
+			if (if_pipe(strs, &i, &flag, cmds))
+				return (1);
 		}
 		else if (is_redirection(strs[i]))
 		{
-			if (strs[i + 1] == NULL)
-			{
-				g_global.status = 258;
-				return (printf("syntax error near unexpected token `newline'\n"));
-			}
-			if (strs[i + 1][0] == '|')
-			{
-				g_global.status = 258;
-				return (printf("syntax error near unexpected token `|'\n"));
-			}
-			i += 2;
+			if (if_redirection(strs, &i))
+				return (1);
 		}
 		else
 			i++;

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:37:39 by bkayan            #+#    #+#             */
-/*   Updated: 2022/10/28 21:30:56 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:56:24 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int		my_export(t_command *a);
 int		add_env(char *a);
 void	print_export(void);
 char	*find_first(const char *a);
-
 
 #endif

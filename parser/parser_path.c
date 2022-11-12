@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 01:49:17 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/11 10:01:55 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:31:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	get_path(t_prompt *prompt)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (g_global.envp[i])
 	{
 		if (ft_strncmp(g_global.envp[i], "PATH=", 5) == 0)

@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 05:04:59 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/28 23:44:38 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:29:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_outfile	*create_node_outfile(char *str)
 
 void	add_node_infile(t_infile **root, char *str)
 {
-	t_infile *curr;
+	t_infile	*curr;
 
 	if (*root == NULL)
 	{
@@ -49,7 +49,7 @@ void	add_node_infile(t_infile **root, char *str)
 
 void	add_node_outfile(t_outfile **root, char *str)
 {
-	t_outfile *curr;
+	t_outfile	*curr;
 
 	if (*root == NULL)
 	{

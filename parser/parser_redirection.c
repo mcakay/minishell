@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 23:27:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/29 03:48:42 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:31:36 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	handle_redirections(t_command *command, char **strs, int *i)
 
 void	init_redirections(t_command **cmd, char **strs)
 {
-	t_command *curr;
-	int		i;
+	t_command	*curr;
+	int			i;
 
 	curr = *cmd;
 	i = 0;

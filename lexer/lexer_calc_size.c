@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 05:21:57 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/02 02:14:36 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 06:08:26 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	calc_env_size(t_input *input)
 {
 	char	*str;
-	char	*tmp;
 	int		j;
 	int		l;
 
@@ -35,9 +34,7 @@ void	calc_env_size(t_input *input)
 		}
 		else if (str[0] == '?' && str[1] == '\0')
 		{
-			tmp = ft_itoa(g_global.status);
-			input->env_size += ft_strlen(tmp);
-			free(tmp);
+			if_question_mark2(input);
 			break ;
 		}
 		j++;
@@ -53,7 +50,8 @@ void	calc_size_double_quote(t_input *input)
 		if (input->line[input->i] == '$')
 		{
 			input->i++;
-			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
+			while (ft_isalnum(input->line[input->i]) == 1
+				|| input->line[input->i] == '?')
 			{
 				input->i++;
 				input->k++;
@@ -76,23 +74,14 @@ void	calc_size(t_input *input)
 		else if (input->line[input->i] == '\'')
 		{
 			input->i++;
-			while (input->line[input->i] != '\'' && input->line[input->i] != '\0')
+			while (input->line[input->i] != '\''
+				&& input->line[input->i] != '\0')
 				input->i++;
 			if (input->line[input->i] == '\'')
 				input->i++;
 		}
 		else if (input->line[input->i] == '$')
-		{
-			input->i++;
-			while (ft_isalnum(input->line[input->i]) == 1 || input->line[input->i] == '?')
-			{
-				input->i++;
-				input->k++;
-			}
-			if (input->k)
-				calc_env_size(input);
-			input->k = 0;
-		}
+			if_dollar(input);
 		else
 			input->i++;
 	}

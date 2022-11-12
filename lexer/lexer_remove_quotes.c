@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
-/*   Updated: 2022/10/27 18:48:33 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/12 04:37:51 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*remove_quotes(char *str, t_input *input)
 	char	*rtn;
 	char	mark;
 
-	rtn = malloc(sizeof(char) * (ft_strlen(str) - calc_size_remove_quotes(str, input) + 1));
+	rtn = malloc(sizeof(char) * (ft_strlen(str) - calc_size_remove_quotes(str,
+					input) + 1));
 	reset_iters(input);
 	while (str[input->i])
 	{
