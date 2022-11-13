@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 22:31:04 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:31:35 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:55:40 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ void	close_all_redirections(t_command **cmd)
 			close(curr->outfile);
 		curr = curr->next;
 	}
+}
+
+int	is_redirection_exec(t_command *cmd)
+{
+	if (cmd->infile_list || cmd->outfile_list 
+		|| cmd->here_doc_list || cmd->append_list)
+		return (1);
+	return (0);
 }

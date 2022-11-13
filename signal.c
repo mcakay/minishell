@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:05:35 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 01:39:20 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	if (g_global.pid == 2)
-		g_global.here_doc = 1;
-	if (g_global.pid != 0)
 	{
+		g_global.heredoc = 1;
+		write(1, "\033[A", 3);
+		ioctl(0, TIOCSTI, "\n");
+	}
+	else if (g_global.pid != 0)
+	{
+		g_global.check = 1;
 		write(1, "\033[A", 3);
 		ioctl(0, TIOCSTI, "\n");
 	}
@@ -29,6 +34,11 @@ void	sigint_handler(int sig)
 void	eof_handler(int sig)
 {
 	(void)sig;
+	if (g_global.pid == 2)
+	{
+		g_global.heredoc = 2;
+		return ;
+	}
 	ft_putstr_fd("exit\n", 1);
 	exit(0);
 }

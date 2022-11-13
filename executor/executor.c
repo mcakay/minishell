@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 04:47:11 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:47:33 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,13 @@ void	executor(t_prompt parsed)
 			if (here_doc(curr))
 				return ;
 		append_mode(curr);
-		if (is_builtin2(curr->full_cmd[0]))
-			exec_builtin2(curr);
-		else
-			exec(curr, parsed);
+		if (curr->is_only_redir == 0)
+		{
+			if (is_builtin2(curr->full_cmd[0]))
+				exec_builtin2(curr);
+			else
+				exec(curr, parsed);
+		}
 		curr = curr->next;
 	}
 	wait_cmd(&parsed);

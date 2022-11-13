@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/13 18:13:49 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/13 22:53:31 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	add_path_to_cmds(t_prompt *prompt)
 	curr = prompt->cmds;
 	while (curr)
 	{
+		curr->is_only_redir = 0;
 		get_redirections(curr);
 		curr->full_path = access_check(prompt->path, curr->full_cmd[0]);
-		if (curr->full_cmd[0][0] == '\0')
+		if (is_redirection_exec(curr) == 0 && curr->full_cmd[0][0] == '\0')
 			curr->full_path = NULL;
 		if (curr->full_path == NULL)
 		{
@@ -33,8 +34,13 @@ void	add_path_to_cmds(t_prompt *prompt)
 			}
 			else
 			{
-				printf("minishell: %s: command not found\n", curr->full_cmd[0]);
-				g_global.status = 127;
+				if (is_redirection_exec(curr) == 0)
+				{
+					printf("minishell: %s: command not found\n", curr->full_cmd[0]);
+					g_global.status = 127;
+				}
+				else
+					curr->is_only_redir = 1;
 			}
 		}
 		curr = curr->next;

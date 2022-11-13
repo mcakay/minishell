@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:03:13 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:43:45 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 01:40:28 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,19 @@ void	get_redirections(t_command *curr)
 	}
 }
 
-int	here_doc_in(t_here_doc *curr, char *line, char *buffer)
+int	here_doc_in(t_here_doc *curr, char *line, char **buffer)
 {
 	while (curr)
 	{
-		if (g_global.here_doc == 1)
-		{
-			g_global.pid = 1;
+		if (g_global.heredoc == 1)
 			return (1);
-		}
+		else if (g_global.heredoc == 2)
+			return (2);
 		line = readline("> ");
-		if (ft_strcmp(line, curr->here_doc) == 0)
+		if (line && ft_strcmp(line, curr->here_doc) == 0)
 			curr = curr->next;
-		else
-			get_buffer(&buffer, line);
+		else if (line)
+			get_buffer(buffer, line);
 		free(line);
 	}
 	return (0);
@@ -82,12 +81,20 @@ int	here_doc(t_command *cmd)
 	curr = cmd->here_doc_list;
 	buffer = ft_strdup("");
 	g_global.pid = 2;
-	here_doc_in(curr, line, buffer);
-	cmd->infile = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	write(cmd->infile, buffer, ft_strlen(buffer));
-	close(cmd->infile);
-	cmd->infile = open("heredoc", O_RDONLY, 0777);
-	free(buffer);
+	if (here_doc_in(curr, line, &buffer) == 1)
+	{
+		g_global.heredoc = 0;
+		g_global.pid = 1;
+		return (1);
+	}
+	if (cmd->infile_list == NULL)
+	{
+		cmd->infile = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		write(cmd->infile, buffer, ft_strlen(buffer));
+		close(cmd->infile);
+		cmd->infile = open("heredoc", O_RDONLY, 0777);
+	}
+	g_global.heredoc = 0;
 	g_global.pid = 1;
 	return (0);
 }

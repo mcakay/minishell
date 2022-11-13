@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:10:45 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:23:30 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 00:39:16 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_global
 {
 	int		status;
 	int		pid;
-	int		here_doc;
+	int		check;
+	int		heredoc;
 	char	**envp;
 }				t_global;
 
@@ -45,6 +46,7 @@ typedef struct s_command
 	t_here_doc			*here_doc_list;
 	t_append			*append_list;
 	int					pid;
+	int					is_only_redir;
 }				t_command;
 
 typedef struct s_prompt
