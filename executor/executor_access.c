@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:40:00 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 04:48:09 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/13 18:13:49 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	add_path_to_cmds(t_prompt *prompt)
 	{
 		get_redirections(curr);
 		curr->full_path = access_check(prompt->path, curr->full_cmd[0]);
-		if (curr->full_path == NULL && curr->full_cmd[0] != NULL)
+		if (curr->full_cmd[0][0] == '\0')
+			curr->full_path = NULL;
+		if (curr->full_path == NULL)
 		{
 			if (prompt->path == NULL)
 			{

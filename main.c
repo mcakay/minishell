@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:32:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:31:00 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/13 16:13:01 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_global(char **envp)
 	signal(SIGQUIT, sigquit_handler);
 }
 
-void	free_a_lot_of_things(char **lexed, t_prompt *parsed, char *line)
+void	free_everything(char **lexed, t_prompt *parsed, char *line)
 {
 	free_strs(lexed);
 	free_parsed(parsed);
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (parsed == NULL)
 			continue ;
 		executor(*parsed);
-		free_a_lot_of_things(lexed, parsed, line);
+		free_everything(lexed, parsed, line);
 	}
 	return (0);
 }

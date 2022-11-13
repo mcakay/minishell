@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 04:38:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 04:38:44 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/13 14:53:53 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,8 @@ int	init_input(t_input *input, char *line)
 char	**lexer(char *line)
 {
 	t_input	input;
-	int		i;
 
 	if (init_input(&input, line))
 		return (NULL);
-	i = 0;
-	while (input.args[i])
-	{
-		reset_iters(&input);
-		input.args[i] = remove_quotes(input.args[i], &input);
-		i++;
-	}
 	return (input.args);
 }
