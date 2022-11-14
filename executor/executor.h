@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:27:33 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/13 22:41:47 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 06:53:49 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,8 @@ void	append_mode(t_command *cmd);
 //utils
 void	get_buffer(char **buffer, char *line);
 int		is_redirection_exec(t_command *cmd);
+void	close_all(t_prompt *parsed);
+void	close_all_pipes(t_prompt *prompt);
+void	wait_cmd(t_prompt *prompt);
 
 #endif

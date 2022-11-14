@@ -6,11 +6,12 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 05:28:18 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/14 00:47:33 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 06:53:51 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+#include "../minishell.h"
 
 void	close_all_pipes(t_prompt *prompt)
 {
@@ -55,7 +56,10 @@ void	exec(t_command *cmd, t_prompt parsed)
 		if (is_builtin1(cmd->full_cmd[0]))
 			exec_builtin1(cmd);
 		else
+		{
 			execve(cmd->full_path, cmd->full_cmd, g_global.envp);
+			exit(0);
+		}
 	}
 	else
 		cmd->pid = pid;
@@ -101,7 +105,5 @@ void	executor(t_prompt parsed)
 		}
 		curr = curr->next;
 	}
-	wait_cmd(&parsed);
-	close_all_pipes(&parsed);
-	close_all_redirections(&parsed.cmds);
+	close_all(&parsed);
 }

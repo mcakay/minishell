@@ -6,11 +6,12 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 23:31:02 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/13 15:25:29 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 03:20:29 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "../minishell.h"
 
 int	calc_size_remove_quotes(char *str, t_input *input)
 {
@@ -48,6 +49,7 @@ char	*remove_quotes(char *str, t_input *input)
 	{
 		if (str[input->i] == '"' || str[input->i] == '\'')
 		{
+			g_global.quotes++;
 			mark = str[input->i];
 			input->i++;
 			while (str[input->i] != mark && str[input->i])

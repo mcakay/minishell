@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 04:01:50 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:01:04 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 06:22:54 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,12 @@ void	free_here_doc(t_command *cmd)
 
 void	free_redirections(t_command *cmd)
 {
-	free_infile_list(cmd);
-	free_outfile_list(cmd);
-	free_append(cmd);
-	free_here_doc(cmd);
+	if (cmd->infile_list)
+		free_infile_list(cmd);
+	if (cmd->outfile_list)
+		free_outfile_list(cmd);
+	if (cmd->append_list)
+		free_append(cmd);
+	if (cmd->here_doc_list)
+		free_here_doc(cmd);
 }

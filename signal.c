@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:52:14 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/14 01:39:20 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 04:36:31 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ void	eof_handler(int sig)
 		g_global.heredoc = 2;
 		return ;
 	}
-	ft_putstr_fd("exit\n", 1);
-	exit(0);
+	else
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit(0);
+	}
 }
 
 void	sigquit_handler(int sig)

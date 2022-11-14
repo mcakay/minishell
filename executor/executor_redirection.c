@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 02:03:13 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/14 01:40:28 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 06:52:06 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	here_doc_in(t_here_doc *curr, char *line, char **buffer)
 			curr = curr->next;
 		else if (line)
 			get_buffer(buffer, line);
+		if (!line)
+			eof_handler(0);
 		free(line);
 	}
 	return (0);
@@ -92,6 +94,7 @@ int	here_doc(t_command *cmd)
 		cmd->infile = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		write(cmd->infile, buffer, ft_strlen(buffer));
 		close(cmd->infile);
+		free(buffer);
 		cmd->infile = open("heredoc", O_RDONLY, 0777);
 	}
 	g_global.heredoc = 0;

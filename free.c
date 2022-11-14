@@ -6,7 +6,7 @@
 /*   By: mcakay <mcakay@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:45:47 by mcakay            #+#    #+#             */
-/*   Updated: 2022/11/12 05:25:37 by mcakay           ###   ########.fr       */
+/*   Updated: 2022/11/14 06:29:38 by mcakay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	free_parsed(t_prompt *prompt)
 	t_command	*tmp;
 	int			i;
 
-	tmp = prompt->cmds;
+	tmp = NULL;
+	if (prompt)
+		tmp = prompt->cmds;
 	i = 0;
-	if (prompt->path)
+	if (prompt && prompt->path)
 	{
 		while (prompt->path[i])
 		{	
@@ -67,5 +69,8 @@ void	free_parsed(t_prompt *prompt)
 		}
 		free(prompt->path);
 	}
-	free(prompt);
+	if (tmp)
+		free_command(tmp);
+	if (prompt)
+		free(prompt);
 }
